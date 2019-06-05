@@ -1,6 +1,6 @@
 import { textParser } from "../../util/textParser";
 import TextInput from "./textInput";
-import { throwStatement, booleanTypeAnnotation } from "@babel/types";
+import Note from "../note";
 
 class DeckCreation extends React.Component {
 
@@ -24,7 +24,8 @@ class DeckCreation extends React.Component {
     render(){
         return <>
             <TextInput callBack={this.parseHandler}/>
-            {this.state.notes.map(note => note.front + " : " + note.back)}
+            {this.state.notes.map(note => <Note {...note}/>)}
+
         </>
     }
 }
