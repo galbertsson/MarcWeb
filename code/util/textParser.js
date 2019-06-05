@@ -1,31 +1,31 @@
 /**
  * 
  * @param {String} text The text to be parsed
- * @returns Returns a JSON object which represent notes, invalid input will return Null
+ * @returns Returns a JSON array which represent the notes, invalid input will return null
  */
-function textParser(text, splitChar){
-    let rows = text.split("\n")
+exports.textParser = function textParser(text, splitChar){
     
+    let rows = text.split("\n")
+
     let parsed = rows.map(row => {
             let splittedRow = row.split(splitChar)
+            
             //Detect Cloze Note
             if(splittedRow.length === 1){
-                console.log("Deteted Cloze Note")
-                return JSON.stringify(splittedRow)
+                return {text: splittedRow[0]}
             }
             //Basic Note
             else if(splittedRow.length === 2){
-                console.log("Deteted Basic Note")
-                return JSON.stringify(splittedRow)
+                return {front: splittedRow[0], back: splittedRow[1]}
             }
-            //Something is wrong, return Null
+            //Something is wrong, return null
             else{
-                return null; //This might now work, might just return null to the map
+                return null;
             }
         })
 
+    //Remove any invalid notes
+    parsed = parsed.filter((e) =>  e !== null)
 
-    console.log(parsed)
+    return parsed
 }
-
-textParser("Hello - Man\nYes - Portugal", " - ")
