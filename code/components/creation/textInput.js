@@ -5,7 +5,10 @@ class TextInput extends React.Component {
     }
 
     render(){
-        return <textarea onChange={(e) => this.props.callBack(e.target.value)}></textarea>
+        return <>
+            <textarea onChange={(e) => this.props.textCallBack(e.target.value)}></textarea>
+            <button onClick={() => this.props.buttonCallBack()}>Import</button>
+            </>
     }
 }
 

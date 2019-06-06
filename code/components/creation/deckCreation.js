@@ -13,13 +13,18 @@ class DeckCreation extends React.Component {
 
         this.parseHandler = this.parseHandler.bind(this)
         this.noteChange = this.noteChange.bind(this)
+        this.runParser = this.runParser.bind(this)
     }
 
 
     parseHandler(text) {
-        let tmp = textParser(text, " - ")//For now hard-code the split character
+        this.setState({text : text})
+    }
 
-        this.setState({notes : tmp, text : text})
+    runParser(){
+        let tmp = textParser(this.state.text, " - ")//For now hard-code the split character
+
+        this.setState({notes : tmp})
     }
 
     noteChange(index, text, isFront){
@@ -48,7 +53,7 @@ class DeckCreation extends React.Component {
 
     render(){
         return <>
-            <TextInput callBack={this.parseHandler}/>
+            <TextInput textCallBack={this.parseHandler} buttonCallBack={this.runParser}/>
             {this.state.notes.map((note, index) => <Note {...note} index={index} callBack={this.noteChange}/>)}
         </>
     }
