@@ -1,16 +1,14 @@
-const Note = (note) => {
-    console.log(note)
-    if(note.text){
+const Note = (props) => {
+    if(props.text){
         return <div>
             Cloze Note:
-            {note.text}
+            <textarea value={props.text} onChange={(e) => props.callBack(props.index, e.target.value)}></textarea>
         </div>
-    } else if(note.front && note.back){
+    } else if(props.front !== undefined && props.back !== undefined){
         return <div>
             Basic Note:
-            {note.front}
-            -
-            {note.back}
+            <textarea value={props.front} onChange={(e) => props.callBack(props.index, e.target.value, true)}></textarea>
+            <textarea value={props.back} onChange={(e) => props.callBack(props.index, e.target.value, false)}></textarea>
         </div>
     }
     return " "
