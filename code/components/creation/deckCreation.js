@@ -1,6 +1,6 @@
 import { textParser } from "../../util/textParser";
 import TextInput from "./textInput";
-import Note from "../note";
+import Note from "./note";
 
 class DeckCreation extends React.Component {
 
@@ -43,17 +43,26 @@ class DeckCreation extends React.Component {
             }         
         }
 
-        console.log("Index: " + index)
-        console.log("Front: " + text)
-        
-        
-
         this.setState({notes})
+    }
+
+    newNote(type){
+        let notes = this.state.notes.slice()
+
+        if(type === "cloze"){
+            notes.push({text : ""})
+        }else if (type === "basic"){
+            notes.push({front : "", back : ""})
+        }
+        
+        this.setState({notes : notes})
     }
 
     render(){
         return <>
             <TextInput textCallBack={this.parseHandler} buttonCallBack={this.runParser}/>
+            <button onClick={() => this.newNote("basic")}>Basic</button>
+            <button onClick={() => this.newNote("cloze")}>Cloze</button>
             {this.state.notes.map((note, index) => <Note {...note} index={index} callBack={this.noteChange}/>)}
         </>
     }

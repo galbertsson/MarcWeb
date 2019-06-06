@@ -1,5 +1,5 @@
 const Note = (props) => {
-    if(props.text){
+    if(props.text !== undefined){
         return <div>
             Cloze Note:
             <textarea value={props.text} onChange={(e) => props.callBack(props.index, e.target.value)}></textarea>
@@ -11,8 +11,7 @@ const Note = (props) => {
             <textarea value={props.back} onChange={(e) => props.callBack(props.index, e.target.value, false)}></textarea>
         </div>
     }
-    return " "
+    return `Apologies, but the note number ${props.index} seems to be invalid!`
 }
-
 
 export default Note
