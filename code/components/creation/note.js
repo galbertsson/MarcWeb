@@ -1,4 +1,6 @@
 const Note = (props) => {
+    //TODO: This needs to get changed to take care of new structure of the Notes
+
     if(props.text !== undefined){
         return <div>
             Cloze Note:

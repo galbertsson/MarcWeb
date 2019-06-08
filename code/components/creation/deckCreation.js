@@ -1,6 +1,8 @@
 import { textParser } from "../../util/textParser";
 import TextInput from "./textInput";
 import Note from "./note";
+import ClozeNote from "../../util/ClozeNote";
+import BasicNote from "../../util/BasicNote";
 
 class DeckCreation extends React.Component {
 
@@ -32,15 +34,15 @@ class DeckCreation extends React.Component {
         
         //Check if cloze note
         if(notes[index].text){
-            notes[index].text = text
+            notes[index].properties.text = text
         }
         //If Basic note
         else{
             if(isFront){
-                notes[index].front = text
+                notes[index].properties.front = text
             } else {
-                notes[index].back = text
-            }         
+                notes[index].properties.back = text
+            }
         }
 
         this.setState({notes})
@@ -50,9 +52,9 @@ class DeckCreation extends React.Component {
         let notes = this.state.notes.slice()
 
         if(type === "cloze"){
-            notes.push({text : ""})
+            notes.push(new ClozeNote(""))
         }else if (type === "basic"){
-            notes.push({front : "", back : ""})
+            notes.push(new BasicNote("",""))
         }
         
         this.setState({notes : notes})
