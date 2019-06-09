@@ -65,7 +65,7 @@ class DeckCreation extends React.Component {
             <TextInput textCallBack={this.parseHandler} buttonCallBack={this.runParser}/>
             <button onClick={() => this.newNote("basic")}>Basic</button>
             <button onClick={() => this.newNote("cloze")}>Cloze</button>
-            {this.state.notes.map((note, index) => <Note {...note} index={index} callBack={this.noteChange}/>)}
+            {this.state.notes.map((note, index) => <Note note={note} index={index} callBack={this.noteChange}/>)}
         </>
     }
 }
