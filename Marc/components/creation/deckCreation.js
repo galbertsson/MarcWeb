@@ -16,6 +16,7 @@ class DeckCreation extends React.Component {
         this.parseHandler = this.parseHandler.bind(this)
         this.noteChange = this.noteChange.bind(this)
         this.runParser = this.runParser.bind(this)
+        this.removeNote = this.removeNote.bind(this)
     }
 
 
@@ -60,12 +61,19 @@ class DeckCreation extends React.Component {
         this.setState({notes : notes})
     }
 
+    removeNote(index){        
+        const notes = this.state.notes.slice()
+        notes.splice(index, 1)
+        
+        this.setState({notes : notes})
+    }
+
     render(){
         return <>
             <TextInput textCallBack={this.parseHandler} buttonCallBack={this.runParser}/>
             <button onClick={() => this.newNote("basic")}>Basic</button>
             <button onClick={() => this.newNote("cloze")}>Cloze</button>
-            {this.state.notes.map((note, index) => <Note note={note} index={index} callBack={this.noteChange}/>)}
+            {this.state.notes.map((note, index) => <Note key={index} note={note} index={index} deleteCallBack={this.removeNote} changeCallBack={this.noteChange}/>)}
         </>
     }
 }
