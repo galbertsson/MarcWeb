@@ -34,7 +34,7 @@ class DeckCreation extends React.Component {
         const notes = this.state.notes.slice()
         
         //Check if cloze note
-        if(notes[index].text){
+        if(notes[index].properties.text !== undefined){
             notes[index].properties.text = text
         }
         //If Basic note
