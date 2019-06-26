@@ -4,6 +4,8 @@ import Note from "./note";
 import ClozeNote from "../../util/ClozeNote";
 import BasicNote from "../../util/BasicNote";
 
+import update from 'immutability-helper';
+
 class DeckCreation extends React.Component {
 
     constructor(props) {
@@ -31,22 +33,32 @@ class DeckCreation extends React.Component {
     }
 
     noteChange(index, text, isFront){
-        const notes = this.state.notes.slice()
-        
         //Check if cloze note
-        if(notes[index].properties.text !== undefined){
-            notes[index].properties.text = text
+        if(this.state.notes[index].properties.text !== undefined){
+            const notes = update(this.state.notes, {
+                    [index] : {
+                        properties : {
+                            text : {$set : text}
+                        }
+                    }
+            })
+
+            this.setState({notes})
         }
         //If Basic note
         else{
-            if(isFront){
-                notes[index].properties.front = text
-            } else {
-                notes[index].properties.back = text
-            }
-        }
+            const property = isFront ? "front" : "back"
 
-        this.setState({notes})
+            const notes = update(this.state.notes, {
+                [index] : {
+                    properties : {
+                        [property] : {$set : text}
+                    }
+                }
+            })
+            
+            this.setState({notes})
+        }
     }
 
     newNote(type){
@@ -74,6 +86,7 @@ class DeckCreation extends React.Component {
             <button onClick={() => this.newNote("basic")}>Basic</button>
             <button onClick={() => this.newNote("cloze")}>Cloze</button>
             {this.state.notes.map((note, index) => <Note key={index} note={note} index={index} deleteCallBack={this.removeNote} changeCallBack={this.noteChange}/>)}
+            <button onClick={() => this.props.createCallback(this.state.notes)}>Create</button>
         </>
     }
 }
