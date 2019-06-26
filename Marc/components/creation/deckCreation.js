@@ -12,7 +12,8 @@ class DeckCreation extends React.Component {
         super(props);
         this.state = {
             notes : [],
-            text : ""
+            text : "",
+            title : ""
         }
 
         this.parseHandler = this.parseHandler.bind(this)
@@ -83,10 +84,11 @@ class DeckCreation extends React.Component {
     render(){
         return <>
             <TextInput textCallBack={this.parseHandler} buttonCallBack={this.runParser}/>
+            <input type="text" onChange={e => this.setState({title : e.target.value})}></input>
             <button onClick={() => this.newNote("basic")}>Basic</button>
             <button onClick={() => this.newNote("cloze")}>Cloze</button>
             {this.state.notes.map((note, index) => <Note key={index} note={note} index={index} deleteCallBack={this.removeNote} changeCallBack={this.noteChange}/>)}
-            <button onClick={() => this.props.createCallback(this.state.notes)}>Create</button>
+            <button onClick={() => this.props.callback(this.state.title, this.state.notes)}>Create</button>
         </>
     }
 }
