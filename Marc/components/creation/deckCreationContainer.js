@@ -1,12 +1,15 @@
 import { textParser } from "../../util/textParser";
 import TextInput from "./textInput";
-import Note from "./note";
 import ClozeNote from "../../util/ClozeNote";
 import BasicNote from "../../util/BasicNote";
 
 import update from 'immutability-helper';
+import CreateButton from "./createButton";
+import EditableNotes from "./editableNotes";
+import CreateNewNote from "./createNewNote";
+import TitleInput from "./titleInput";
 
-class DeckCreation extends React.Component {
+class DeckCreationContainer extends React.Component {
 
     constructor(props) {
         super(props);
@@ -20,6 +23,8 @@ class DeckCreation extends React.Component {
         this.noteChange = this.noteChange.bind(this)
         this.runParser = this.runParser.bind(this)
         this.removeNote = this.removeNote.bind(this)
+        this.createDeck = this.createDeck.bind(this)
+        this.newNote = this.newNote.bind(this)
     }
 
 
@@ -81,16 +86,19 @@ class DeckCreation extends React.Component {
         this.setState({notes : notes})
     }
 
+    createDeck(){
+        this.props.callback(this.state.title, this.state.notes)
+    }
+    
     render(){
         return <>
             <TextInput textCallBack={this.parseHandler} buttonCallBack={this.runParser}/>
-            <input type="text" onChange={e => this.setState({title : e.target.value})}></input>
-            <button onClick={() => this.newNote("basic")}>Basic</button>
-            <button onClick={() => this.newNote("cloze")}>Cloze</button>
-            {this.state.notes.map((note, index) => <Note key={index} note={note} index={index} deleteCallBack={this.removeNote} changeCallBack={this.noteChange}/>)}
-            <button onClick={() => this.props.callback(this.state.title, this.state.notes)}>Create</button>
+            <TitleInput titleCallback={(title) => this.setState({title : title})}/>
+            <CreateNewNote newNoteCallback={this.newNote}/>
+            <EditableNotes notes={this.state.notes} deleteCallBack={this.removeNote} changeCallBack={this.noteChange}/>
+            <CreateButton callback={this.createDeck}/>
         </>
     }
 }
 
-export default DeckCreation;
+export default DeckCreationContainer;

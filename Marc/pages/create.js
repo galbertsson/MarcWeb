@@ -1,5 +1,5 @@
 import React from 'react';
-import DeckCreation from '../components/creation/deckCreation';
+import DeckCreationContainer from '../components/creation/deckCreationContainer';
 
 
 
@@ -13,7 +13,7 @@ export default () => (
     </style>
 
   <div>
-      <DeckCreation callback={callback}/>
+      <DeckCreationContainer callback={callback}/>
   </div>
   </>
 );
