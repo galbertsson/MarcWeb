@@ -19,6 +19,8 @@ export default () => (
 );
 
 /**
+ * TODO: Once this is connected to some backend this is where things needs to get sent of
+ * 
  * @param {string} title The title of the deck being created
  * @param {Array} notes The notes in the deck
  */
