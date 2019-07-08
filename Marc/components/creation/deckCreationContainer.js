@@ -40,12 +40,10 @@ class DeckCreationContainer extends React.Component {
 
     noteChange(index, text, isFront){
         //Check if cloze note
-        if(this.state.notes[index].properties.text !== undefined){
+        if(this.state.notes[index].text !== undefined){
             const notes = update(this.state.notes, {
                     [index] : {
-                        properties : {
-                            text : {$set : text}
-                        }
+                        text : {$set : text}
                     }
             })
 
@@ -57,9 +55,7 @@ class DeckCreationContainer extends React.Component {
 
             const notes = update(this.state.notes, {
                 [index] : {
-                    properties : {
-                        [property] : {$set : text}
-                    }
+                    [property] : {$set : text}
                 }
             })
             
