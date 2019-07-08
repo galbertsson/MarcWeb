@@ -19,13 +19,18 @@ export default () => (
 );
 
 /**
- * TODO: Once this is connected to some backend this is where things needs to get sent of
- * 
  * @param {string} title The title of the deck being created
  * @param {Array} notes The notes in the deck
  */
 const callback = (title, notes) => {
-  console.log("Deck done")
-  console.log(title)
-  console.log(notes)
+  fetch("http://localhost:8080/create", {
+    method : 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      title : title,
+      notes : notes
+    })
+  }).then(() => console.log("Got it!"))
 }
