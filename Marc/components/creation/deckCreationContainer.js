@@ -13,10 +13,11 @@ class DeckCreationContainer extends React.Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
-            notes : [],
+            notes : (props.notes ? props.notes : []), //Get the supplied notes if there are any
             text : "",
-            title : ""
+            title : (props.title ? props.title : "") //Get the supplied title if there is any
         }
 
         this.parseHandler = this.parseHandler.bind(this)
@@ -33,7 +34,7 @@ class DeckCreationContainer extends React.Component {
     }
 
     runParser(){
-        let tmp = textParser(this.state.text, " - ")//For now hard-code the split character
+        let tmp = textParser(this.state.text, " - ")//TODO: For now hard-code the split character
 
         this.setState({notes : tmp})
     }
