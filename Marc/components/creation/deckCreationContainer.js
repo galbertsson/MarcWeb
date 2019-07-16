@@ -13,10 +13,11 @@ class DeckCreationContainer extends React.Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
-            notes : [],
+            notes : (props.notes ? props.notes : []), //Get the supplied notes if there are any
             text : "",
-            title : ""
+            title : (props.title ? props.title : "") //Get the supplied title if there is any
         }
 
         this.parseHandler = this.parseHandler.bind(this)
@@ -33,19 +34,17 @@ class DeckCreationContainer extends React.Component {
     }
 
     runParser(){
-        let tmp = textParser(this.state.text, " - ")//For now hard-code the split character
+        let tmp = textParser(this.state.text, " - ")//TODO: For now hard-code the split character
 
         this.setState({notes : tmp})
     }
 
     noteChange(index, text, isFront){
         //Check if cloze note
-        if(this.state.notes[index].properties.text !== undefined){
+        if(this.state.notes[index].text !== undefined){
             const notes = update(this.state.notes, {
                     [index] : {
-                        properties : {
-                            text : {$set : text}
-                        }
+                        text : {$set : text}
                     }
             })
 
@@ -57,9 +56,7 @@ class DeckCreationContainer extends React.Component {
 
             const notes = update(this.state.notes, {
                 [index] : {
-                    properties : {
-                        [property] : {$set : text}
-                    }
+                    [property] : {$set : text}
                 }
             })
             

@@ -4,6 +4,6 @@ test('Basic Note', () => {
     let note = new BasicNote("Bob", "Ed")
     
     expect(note.type).toStrictEqual("BasicNote")
-    expect(note.properties.front).toStrictEqual("Bob")
-    expect(note.properties.back).toStrictEqual("Ed")
+    expect(note.front).toStrictEqual("Bob")
+    expect(note.back).toStrictEqual("Ed")
 });

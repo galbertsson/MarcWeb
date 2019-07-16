@@ -1,6 +1,7 @@
 class BasicNote{
     constructor(front, back){
-        this.properties = {front: front, back : back}
+        this.front = front
+        this.back = back
         this.type = "BasicNote"
     }
 }
