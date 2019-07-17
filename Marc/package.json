@@ -1,7 +1,9 @@
 {
-  "name": "with-jest",
+  "name": "marc",
   "version": "1.0.0",
   "dependencies": {
+    "compression": "^1.7.4",
+    "express": "^4.17.1",
     "immutability-helper": "^3.0.1",
     "isomorphic-unfetch": "^3.0.0",
     "next": "8.1.0",
@@ -20,8 +22,8 @@
   },
   "scripts": {
     "test": "jest",
-    "dev": "next",
+    "dev": "node server.js",
     "build": "next build",
-    "start": "next start"
+    "start": "NODE_ENV=production node server.js"
   }
 }
