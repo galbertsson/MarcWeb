@@ -90,7 +90,7 @@ class DeckCreationContainer extends React.Component {
     render(){
         return <>
             <TextInput textCallBack={this.parseHandler} buttonCallBack={this.runParser}/>
-            <TitleInput titleCallback={(title) => this.setState({title : title})}/>
+            <TitleInput title={this.state.title} titleCallback={(title) => this.setState({title : title})}/>
             <CreateNewNote newNoteCallback={this.newNote}/>
             <EditableNotes notes={this.state.notes} deleteCallBack={this.removeNote} changeCallBack={this.noteChange}/>
             <CreateButton callback={this.createDeck}/>
