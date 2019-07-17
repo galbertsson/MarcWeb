@@ -39,7 +39,6 @@ class Edit extends React.Component {
         </style>
 
         <div>
-            <p>aaa</p>
             <DeckCreationContainer title={this.props.data.title} notes={this.props.data.notes} callback={this.callback}/>
         </div>
     </>

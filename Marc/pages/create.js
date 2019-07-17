@@ -23,7 +23,7 @@ export default () => (
  * @param {Array} notes The notes in the deck
  */
 const callback = (title, notes) => {
-  fetch("http://localhost:8080/create", {
+  fetch("http://localhost:8080/decks/create", {
     method : 'POST',
     headers: {
       'Content-Type': 'application/json',
