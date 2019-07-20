@@ -3,7 +3,7 @@ import fetch from 'isomorphic-unfetch';
 import { withRouter } from 'next/router'
 import DeckPicker from '../components/display/deckPicker';
 
-class Edit extends React.Component {
+class Decks extends React.Component {
 
     constructor(props){
         super(props)
@@ -34,5 +34,4 @@ class Edit extends React.Component {
     };
 }
 
-export default withRouter(Edit);
-
+export default withRouter(Decks);
