@@ -8,7 +8,7 @@ class Signup extends React.Component {
         super(props)
         this.state = {}
 
-        this.state.firebase = firebase.auth()
+        //this.state.firebase = firebase.auth() //TODO: CHANGE :) 
 
         this.register = this.register.bind(this)
         this.change = this.change.bind(this)
@@ -18,7 +18,9 @@ class Signup extends React.Component {
         console.log(this.state)
         this.state.firebase.createUserWithEmailAndPassword(this.state.email, this.state.password)
         .then(this.setState({email : "", password : ""}))
-        .catch()
+        .catch(error => {
+            if(error){}
+        })
         e.preventDefault()
     }
 

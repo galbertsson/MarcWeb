@@ -24,8 +24,20 @@ class Decks extends React.Component {
     </>
     }
 
+    checkStatus(response) {
+        if (response.ok) {
+            console.log("Things look good!")
+          return response;
+        } else {
+            console.log("Something broken!")
+          var error = new Error(response.statusText);
+          error.response = response;
+          return Promise.reject(error);
+        }
+      }
+
     static async getInitialProps(){
-        const res = await fetch(`http://localhost:8080/decks/basic`);
+        const res = await fetch(`http://localhost:8080/decks/basic`)
         const data = await res.json();
       
         return {
