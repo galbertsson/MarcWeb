@@ -3,9 +3,10 @@ import dynamic from 'next/dynamic';
 import firebase from 'firebase';
 import Signup from '../components/auth/signup';
 import FirebaseContext from '../components/firebase/FirebaseContext'
+import SignInContainer from '../components/auth/signInContainer'
 
 //This is needed to disable SSR on StyledFirebaseAuth which does not support it
-const StyledFirebaseAuthNoSSR = dynamic(() => import("react-firebaseui/StyledFirebaseAuth"), { ssr: false });
+//const StyledFirebaseAuthNoSSR = dynamic(() => import("react-firebaseui/StyledFirebaseAuth"), { ssr: false });
 //const FirebaseContextNoSSR = dynamic(() => import ("../components/firebase/FirebaseContext"), { ssr: false });
 
 class Index extends React.Component {
@@ -21,6 +22,7 @@ class Index extends React.Component {
   }
 
   render(){
+    
     return <div>
     <style jsx>{`
       p {
@@ -30,7 +32,14 @@ class Index extends React.Component {
     <p>Hello World!</p>
 
     <Signup/>
-    <FirebaseContext.Consumer>
+    <SignInContainer firebase={this.props.firebase} />
+    <button onClick={() => {
+      if(process.browser){
+        this.props.firebase.auth().signOut()
+      }
+    }}></button>
+
+    {/* <FirebaseContext.Consumer>
       {fireApp => 
         fireApp ?
           fireApp.auth().currentUser ? 
@@ -47,7 +56,7 @@ class Index extends React.Component {
           console.log(fireApp.auth().currentUser)
         : console.log("No Auth available!")
       }
-    </FirebaseContext.Consumer>
+    </FirebaseContext.Consumer> */}
 
   </div>
   }

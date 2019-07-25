@@ -28,6 +28,11 @@ class MyApp extends App {
             this.firebase = firebase.initializeApp(config)
             this.firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
           }
+
+          this.firebase.auth().onAuthStateChanged(function(user) {
+            console.log("State changed!")
+            console.log(user)
+          });
         }
         console.log(this.firebase)
     }
@@ -48,7 +53,7 @@ class MyApp extends App {
     return (
         <Container>
             <FirebaseContext.Provider value={this.firebase}>
-                <Component {...pageProps} />
+                <Component {...pageProps} firebase={this.firebase}/>
             </FirebaseContext.Provider>
         </Container>
     );
