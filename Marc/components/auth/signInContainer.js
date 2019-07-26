@@ -12,13 +12,12 @@ class signInContainer extends React.Component {
     }
     
     onChange(e){
-        console.log("Typing boii")
         this.setState({[e.target.name] : e.target.value})
     }
     
     submit(e){
-        console.log("Going to submit!")
         this.props.firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+        .then(this.setState({email : "", password : ""}))
         .catch(function(error) {
             // Handle Errors here.
             var errorCode = error.code;
