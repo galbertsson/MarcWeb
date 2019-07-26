@@ -8,8 +8,6 @@ class Signup extends React.Component {
         super(props)
         this.state = {}
 
-        //this.state.firebase = firebase.auth() //TODO: CHANGE :) 
-
         this.register = this.register.bind(this)
         this.change = this.change.bind(this)
     }
