@@ -52,9 +52,9 @@ class MyApp extends App {
 
     return (
         <Container>
-            <FirebaseContext.Provider value={this.firebase}>
+            {/* <FirebaseContext.Provider value={this.firebase}> */}
                 <Component {...pageProps} firebase={this.firebase}/>
-            </FirebaseContext.Provider>
+            {/* </FirebaseContext.Provider> */}
         </Container>
     );
   }

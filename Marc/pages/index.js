@@ -4,6 +4,8 @@ import firebase from 'firebase';
 import Signup from '../components/auth/signup';
 import FirebaseContext from '../components/firebase/FirebaseContext'
 import SignInContainer from '../components/auth/signInContainer'
+import LogoutContainer from '../components/auth/logoutContainer';
+import AuthenticationContainer from '../components/auth/AuthenticationContainer';
 
 //This is needed to disable SSR on StyledFirebaseAuth which does not support it
 //const StyledFirebaseAuthNoSSR = dynamic(() => import("react-firebaseui/StyledFirebaseAuth"), { ssr: false });
@@ -31,13 +33,8 @@ class Index extends React.Component {
     `}</style>
     <p>Hello World!</p>
 
-    <Signup/>
-    <SignInContainer firebase={this.props.firebase} />
-    <button onClick={() => {
-      if(process.browser){
-        this.props.firebase.auth().signOut()
-      }
-    }}></button>
+    <Signup firebase={this.props.firebase} />
+    <AuthenticationContainer firebase={this.props.firebase} />
 
     {/* <FirebaseContext.Consumer>
       {fireApp => 
