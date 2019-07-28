@@ -17,6 +17,8 @@ class MyApp extends App {
 
     constructor(data){
         super(data)
+        this.state = {user : undefined}
+
         console.log("Const!")
         console.log(firebase.apps)
         
@@ -29,13 +31,19 @@ class MyApp extends App {
             this.firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
           }
 
-          this.firebase.auth().onAuthStateChanged(function(user) {
+          this.firebase.auth().onAuthStateChanged((user) => {
             console.log("State changed!")
             console.log(user)
-          });
+            this.setState({user : user})
+          })
         }
         console.log(this.firebase)
     }
+
+
+  componentDidMount(){
+    
+  }
 
   static async getInitialProps({ Component, ctx }) {
     let pageProps = {};
@@ -53,7 +61,7 @@ class MyApp extends App {
     return (
         <Container>
             {/* <FirebaseContext.Provider value={this.firebase}> */}
-                <Component {...pageProps} firebase={this.firebase}/>
+                <Component {...pageProps} firebase={this.firebase} user={this.state.user}/>
             {/* </FirebaseContext.Provider> */}
         </Container>
     );
