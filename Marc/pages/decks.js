@@ -17,10 +17,8 @@ class Decks extends React.Component {
           method : 'POST',
           headers: {
             'Content-Type': 'application/json',
-          },
-          body : JSON.stringify({
-            token
-          })
+            'Authorization': `Bearer ${token}`
+          }
         }))
         .then((res) => res.json())
         .then((data) => resolve(data))
