@@ -28,6 +28,11 @@ class DeckCreationContainer extends React.Component {
         this.newNote = this.newNote.bind(this)
     }
 
+    componentDidUpdate(prevProps){
+        if(prevProps.notes.length === 0 && prevProps.title === ""){
+            this.setState({notes : this.props.notes, title : this.props.title})
+        }
+    }
 
     parseHandler(text) {
         this.setState({text : text})

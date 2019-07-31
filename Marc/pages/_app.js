@@ -1,0 +1,59 @@
+import React from 'react';
+import App, { Container } from 'next/app';
+import firebase from 'firebase';
+
+const config = {
+    apiKey: "AIzaSyAsCLYUhRdm_bvLOGgwdVXKGcCSlNX7zO8",
+    authDomain: "marcapipoint.firebaseapp.com",
+    databaseURL: "https://marcapipoint.firebaseio.com",
+    projectId: "marcapipoint",
+    storageBucket: "",
+    messagingSenderId: "591562006117",
+    appId: "1:591562006117:web:e53bb13ecf0aad59"
+}
+
+class MyApp extends App {
+
+    constructor(data){
+      super(data)
+      this.state = {user : undefined}
+      
+      if(process.browser){
+        if(firebase.apps && firebase.apps.length > 0){
+          this.firebase = firebase.apps[0]
+          this.firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+        }else {
+          this.firebase = firebase.initializeApp(config)
+          this.firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+        }
+
+        this.firebase.auth().onAuthStateChanged((user) => {
+          this.setState({user : user})
+        })
+      }
+  }
+
+  static async getInitialProps({ Component, ctx }) {
+    let pageProps = {};
+
+    if (Component.getInitialProps) {
+      pageProps = await Component.getInitialProps(ctx);
+    }
+
+    return { pageProps };
+  }
+
+  render() {
+    const { Component, pageProps } = this.props;
+
+    return (
+        <Container>
+            {/* <FirebaseContext.Provider value={this.firebase}> */}
+                <Component {...pageProps} firebase={this.firebase} user={this.state.user}/>
+            {/* </FirebaseContext.Provider> */}
+        </Container>
+    );
+  }
+}
+
+export default MyApp;

@@ -4,18 +4,25 @@
   "dependencies": {
     "compression": "^1.7.4",
     "express": "^4.17.1",
+    "firebase": "^6.3.0",
     "immutability-helper": "^3.0.1",
     "isomorphic-unfetch": "^3.0.0",
     "next": "8.1.0",
-    "npm": "^6.9.0",
+    "npm": "^6.10.2",
     "react": "16.8.6",
-    "react-dom": "16.8.6"
+    "react-dom": "16.8.6",
+    "react-firebaseui": "^3.1.2"
   },
   "devDependencies": {
     "@babel/core": "7.3.4",
     "babel-jest": "24.1.0",
     "enzyme": "3.4.3",
     "enzyme-adapter-react-16": "1.2.0",
+    "eslint": "^5.3.0",
+    "eslint-config-airbnb": "^17.1.1",
+    "eslint-plugin-import": "^2.18.0",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.14.2",
     "jest": "24.1.0",
     "react-addons-test-utils": "15.6.2",
     "react-test-renderer": "16.4.2"

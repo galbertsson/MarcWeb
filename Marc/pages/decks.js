@@ -3,10 +3,40 @@ import fetch from 'isomorphic-unfetch';
 import { withRouter } from 'next/router'
 import DeckPicker from '../components/display/deckPicker';
 
-class Edit extends React.Component {
+class Decks extends React.Component {
 
     constructor(props){
         super(props)
+        this.state = {decks : []}
+    }
+
+    fetchDecks(){
+      return new Promise((resolve, reject) =>{
+        this.props.user.getIdToken()
+        .then((token) => fetch("http://localhost:8080/decks/basic", {
+          method : 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        }))
+        .then((res) => res.json())
+        .then((data) => resolve(data))
+      })
+    }
+
+    componentDidMount(){
+      if(this.props.user){
+        this.fetchDecks()
+        .then((jsonRes) => this.setState({decks : jsonRes}))
+      }
+    }
+
+    componentDidUpdate(prevProps){
+      if(this.props.user && !prevProps.user){
+        this.fetchDecks()
+        .then((jsonRes) => this.setState({decks : jsonRes}))
+      }
     }
 
     render(){
@@ -19,20 +49,10 @@ class Edit extends React.Component {
         </style>
 
         <div>
-            <DeckPicker decks={this.props.data} />
+            <DeckPicker decks={this.state.decks} />
         </div>
     </>
     }
-
-    static async getInitialProps(){
-        const res = await fetch(`http://localhost:8080/decks/basic`);
-        const data = await res.json();
-      
-        return {
-          data
-        };
-    };
 }
 
-export default withRouter(Edit);
-
+export default withRouter(Decks);
