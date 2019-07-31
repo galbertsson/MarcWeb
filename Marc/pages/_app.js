@@ -18,9 +18,6 @@ class MyApp extends App {
     constructor(data){
         super(data)
         this.state = {user : undefined}
-
-        console.log("Const!")
-        console.log(firebase.apps)
         
         if(process.browser){//TODO: this code should be moved to componentDidMount
           if(firebase.apps && firebase.apps.length > 0){
@@ -32,12 +29,9 @@ class MyApp extends App {
           }
 
           this.firebase.auth().onAuthStateChanged((user) => {
-            console.log("State changed!")
-            console.log(user)
             this.setState({user : user})
           })
         }
-        console.log(this.firebase)
     }
 
 

@@ -26,7 +26,6 @@ callback(title, notes){
       notes : notes
     })
   }))
-  .then(() => console.log("Got it!"))
 }
   
   render() {

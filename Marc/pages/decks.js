@@ -53,22 +53,6 @@ class Decks extends React.Component {
         </div>
     </>
     }
-
-    checkStatus(response) {
-        if (response.ok) {
-            console.log("Things look good!")
-          return response;
-        } else {
-            console.log("Something broken!")
-          var error = new Error(response.statusText);
-          error.response = response;
-          return Promise.reject(error);
-        }
-      }
-
-    static async getInitialProps(){
-     
-    };
 }
 
 export default withRouter(Decks);

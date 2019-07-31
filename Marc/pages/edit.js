@@ -32,7 +32,6 @@ class Edit extends React.Component {
                 title : title,
                 notes : notes})
             }))
-        .then(() => console.log("Got it!"))
     }
 
     fetchDeck(){
