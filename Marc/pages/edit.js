@@ -7,9 +7,11 @@ class Edit extends React.Component {
 
     constructor(props){
         super(props)
-        console.log(props.data.id)
+
+        this.state = {data : {title : "", notes : []}}
 
         this.callback = this.callback.bind(this)
+        this.fetchDeck = this.fetchDeck.bind(this)
     }
 
     /**
@@ -33,6 +35,35 @@ class Edit extends React.Component {
         .then(() => console.log("Got it!"))
     }
 
+    fetchDeck(){
+        return new Promise((resolve, reject) =>{this.props.user.getIdToken()
+        .then((token) => 
+            fetch(`http://localhost:8080/decks/${this.props.id}`, {
+                method : 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+        )
+        .then((res) => res.json())
+        .then((data) => resolve(data))
+        })
+    }
+
+    componentDidMount(){
+        if(this.props.user){
+          this.fetchDeck()
+          .then((jsonRes) => this.setState({data : jsonRes}))
+        }
+      }
+  
+    componentDidUpdate(prevProps){
+    if(this.props.user && !prevProps.user){
+        this.fetchDeck()
+        .then((jsonRes) => this.setState({data : jsonRes}))
+    }
+    }
+
     render(){
     return <>
         <style jsx>{`
@@ -43,19 +74,16 @@ class Edit extends React.Component {
         </style>
 
         <div>
-            <DeckCreationContainer title={this.props.data.title} notes={this.props.data.notes} callback={this.callback}/>
+            <DeckCreationContainer title={this.state.data.title} notes={this.state.data.notes} callback={this.callback}/>
         </div>
     </>
     }
 
     static async getInitialProps(context){
-        const res = await fetch(`http://localhost:8080/decks/${context.query.id}`); //TODO: SEND TOKEN HERE, CANNOT DO THIS ON SERVER ANYMORE
-        const data = await res.json();
-      
         return {
-          data
-        };
-    };
+          id : context.query.id
+        }
+    }
 }
 
 export default withRouter(Edit);
