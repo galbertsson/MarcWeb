@@ -15,27 +15,22 @@ const config = {
 class MyApp extends App {
 
     constructor(data){
-        super(data)
-        this.state = {user : undefined}
-        
-        if(process.browser){//TODO: this code should be moved to componentDidMount
-          if(firebase.apps && firebase.apps.length > 0){
-            this.firebase = firebase.apps[0]
-            this.firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-          }else {
-            this.firebase = firebase.initializeApp(config)
-            this.firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-          }
-
-          this.firebase.auth().onAuthStateChanged((user) => {
-            this.setState({user : user})
-          })
+      super(data)
+      this.state = {user : undefined}
+      
+      if(process.browser){
+        if(firebase.apps && firebase.apps.length > 0){
+          this.firebase = firebase.apps[0]
+          this.firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+        }else {
+          this.firebase = firebase.initializeApp(config)
+          this.firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
         }
-    }
 
-
-  componentDidMount(){
-    
+        this.firebase.auth().onAuthStateChanged((user) => {
+          this.setState({user : user})
+        })
+      }
   }
 
   static async getInitialProps({ Component, ctx }) {
