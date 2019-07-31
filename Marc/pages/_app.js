@@ -1,7 +1,6 @@
 import React from 'react';
 import App, { Container } from 'next/app';
 import firebase from 'firebase';
-import { FirebaseContext } from '../components/firebase';
 
 const config = {
     apiKey: "AIzaSyAsCLYUhRdm_bvLOGgwdVXKGcCSlNX7zO8",
