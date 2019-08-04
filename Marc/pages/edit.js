@@ -28,7 +28,7 @@ class Edit extends React.Component {
                 'Authorization': `Bearer ${token}`
             },
             body : JSON.stringify({
-                id : this.props.data.id,
+                id : this.props.id,
                 title : title,
                 notes : notes})
             }))

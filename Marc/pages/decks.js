@@ -14,7 +14,7 @@ class Decks extends React.Component {
       return new Promise((resolve, reject) =>{
         this.props.user.getIdToken()
         .then((token) => fetch("http://localhost:8080/decks/basic", {
-          method : 'POST',
+          method : 'GET',
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
