@@ -1,6 +1,7 @@
 import React from 'react';
 import App, { Container } from 'next/app';
 import firebase from 'firebase';
+import Header from '../components/shared/header';
 
 const config = {
     apiKey: "AIzaSyAsCLYUhRdm_bvLOGgwdVXKGcCSlNX7zO8",
@@ -48,9 +49,8 @@ class MyApp extends App {
 
     return (
         <Container>
-            {/* <FirebaseContext.Provider value={this.firebase}> */}
-                <Component {...pageProps} firebase={this.firebase} user={this.state.user}/>
-            {/* </FirebaseContext.Provider> */}
+          <Header />
+          <Component {...pageProps} firebase={this.firebase} user={this.state.user}/>  
         </Container>
     );
   }
