@@ -29,7 +29,7 @@ class DeckCreationContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps){
-        if(prevProps.notes.length === 0 && prevProps.title === ""){
+        if(prevProps.notes.length === 0 && prevProps.title === "" && this.props.title !== ""){
             this.setState({notes : this.props.notes, title : this.props.title})
         }
     }
