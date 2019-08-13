@@ -1,35 +1,45 @@
 import React from 'react'
 import Link from 'next/link'
 
+import Colors from '../../util/colors'
+
 const Header = () => {
     
-
     return (
         <>
             <style jsx>{`
-                a {
-                    margin-left: 10px;
+                .nav-text {
+                    color: ${Colors.textColorPrimary} !important; /*Needed to overwrite bootstrap*/
+                }
+                #navbar{
+                    background-color: ${Colors.primaryColor};
+                    height: 55px;
+                    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
                 }
                 `}</style>
-            <div>
+            <nav className="nav align-items-center col-md-12" id="navbar">
                 <Link href="/">
-                    <a>
+                    <a className="nav-link nav-text">
                         Home
                     </a>
                 </Link>
-
                 <Link href="/decks">
-                    <a>
+                    <a className="nav-link nav-text">
                         Decks
                     </a>
                 </Link>
-
                 <Link href="/create">
-                    <a>
+                    <a className="nav-link nav-text">
                         Create Deck
                     </a>
                 </Link>
-            </div>
+                <a href="#" className="nav-link nav-text ml-auto">
+                    Login
+                </a>
+                <a href="#" className="nav-link nav-text">
+                    Register
+                </a>
+            </nav>
         </>
     )
 }
