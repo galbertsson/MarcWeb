@@ -13,7 +13,7 @@ const Header = () => {
                 }
                 #navbar{
                     background-color: ${Colors.primaryColor};
-                    height: 55px;
+                    min-height: 55px;
                     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
                 }
                 `}</style>
