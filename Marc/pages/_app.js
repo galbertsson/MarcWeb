@@ -50,18 +50,21 @@ class MyApp extends App {
 
     return (
           <Container>
+              <style jsx>{`
+                  #main-area : {
+                    background-color : #E1E2E1  
+                  }
+              `}</style>
               <Head>
                 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
                 integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
                 crossOrigin="anonymous" />
               </Head>
-              <div className="container-fluid">
+              <div id="main-area" className="container-fluid">
                 <div className="row">
                   <Header />
                 </div>
-                <div className="row">
-                  <Component {...pageProps} firebase={this.firebase} user={this.state.user}/>  
-                </div>
+                <Component {...pageProps} firebase={this.firebase} user={this.state.user}/>  
               </div>
           </Container>
     );
