@@ -43,12 +43,14 @@ class Decks extends React.Component {
     render(){
       let testDecks =
         [
-          {title: "T1", id:1},
-          {title: "T2", id:2},
-          {title: "T3", id:3},
-          {title: "T4", id:4},
-          {title: "T5", id:5},
-          {title: "T6", id:6},
+          {title: "T1", nrNotes:0, id:1},
+          {title: "T2", nrNotes:1,id:2},
+          {title: "T3", nrNotes:2,id:3},
+          {title: "T4", nrNotes:3,id:4},
+          {title: "T5", nrNotes:4,id:5},
+          {title: "T6", nrNotes:5,id:6},
+          {title: "T5", nrNotes:4,id:5},
+          {title: "T6", nrNotes:5,id:6},
         ]
 
     return <>

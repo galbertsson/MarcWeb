@@ -1,17 +1,21 @@
 import React from 'react'
 import BasicDeck from "./basicDeck";
+import DeckTop from './deckTop';
 
 const DeckPicker = ({decks}) => {
     
     return (
-    <div id="picker" className="row d-flex flex-wrap justify-content-center align-content-start col-md-12">
+    <>
         <style jsx>{`
             #picker {
-                margin-top: 20px;
+                
             }    
         `}</style>
-        {decks.map(deck => <BasicDeck key={deck.id} deck={deck}/>)}
-    </div>
+        <DeckTop />
+        <div className="col-md-12 row d-flex flex-wrap justify-content-center align-content-start">
+            {decks.map(deck => <BasicDeck key={deck.id} deck={deck}/>)}
+        </div>
+    </>
     )   
 }
 
