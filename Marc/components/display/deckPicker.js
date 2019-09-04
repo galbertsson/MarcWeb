@@ -7,12 +7,13 @@ const DeckPicker = ({decks}) => {
     return (
     <>
         <style jsx>{`
-            #picker {
-                
-            }    
+             #picker: {
+                 display: flex;
+                 background-color: green;
+             }
         `}</style>
         <DeckTop />
-        <div className="col-md-12 row d-flex flex-wrap justify-content-center align-content-start">
+        <div id="picker">
             {decks.map(deck => <BasicDeck key={deck.id} deck={deck}/>)}
         </div>
     </>

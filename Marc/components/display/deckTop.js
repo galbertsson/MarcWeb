@@ -3,7 +3,7 @@ import colors from '../../util/colors';
 
 const DeckTop = () => {
     return (
-        <div id="top" className="row col-md-12">
+        <div id="top">
             <style jsx>{`
             #top {
                 height: 55px;

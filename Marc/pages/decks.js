@@ -62,7 +62,7 @@ class Decks extends React.Component {
         `}
         </style>
 
-        <div className="row root">
+        <div className="root">
             <DeckPicker decks={testDecks} />
         </div>
     </>

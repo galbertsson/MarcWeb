@@ -56,14 +56,9 @@ class MyApp extends App {
                   }
               `}</style>
               <Head>
-                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
-                integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
-                crossOrigin="anonymous" />
               </Head>
-              <div id="main-area" className="container-fluid">
-                <div className="row">
-                  <Header />
-                </div>
+              <div id="main-area">
+                <Header />
                 <Component {...pageProps} firebase={this.firebase} user={this.state.user}/>  
               </div>
           </Container>
