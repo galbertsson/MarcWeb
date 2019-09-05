@@ -5,18 +5,19 @@ import DeckTop from './deckTop';
 const DeckPicker = ({decks}) => {
     
     return (
-    <>
+    <div>
         <style jsx>{`
-             #picker: {
+             .picker{
                  display: flex;
-                 background-color: green;
+                 flex-wrap: wrap;
+                 justify-content: space-evenly
              }
         `}</style>
         <DeckTop />
-        <div id="picker">
+        <div className="picker">
             {decks.map(deck => <BasicDeck key={deck.id} deck={deck}/>)}
         </div>
-    </>
+    </div>
     )   
 }
 
