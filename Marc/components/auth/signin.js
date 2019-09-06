@@ -1,4 +1,5 @@
 import React from 'react'
+import Colors from '../../util/colors'
 
 const SignIn = ({onChange, submit}) => {
     return (
@@ -17,17 +18,59 @@ const SignIn = ({onChange, submit}) => {
                     align-items: center;
                 }
                 .form{
-                    width: 500px;
-                    height: 250px;
+                    max-width: 400px;
+                    height: 200px;
                     background-color: white;
                     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+                    padding-left: 50px;
+                    padding-right: 50px;
+                    padding-bottom: 50px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between
+                }
+                .button{
+                    width: 60px;
+                    height: 30px;
+                    background-color: ${Colors.primaryColor};
+                    color: ${Colors.textColorPrimary};
+                    border: 0;
+                    padding: 0;
+                    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+                    align-self: flex-end;
+                }
+                .textInput{
+                    border: 0;
+                    border-radius: 0;
+                    border-bottom: 1px solid black;
+                    height: 28px;
+                    font-size: 20px;
+                    width: 100%;
+
+                }
+                .textInput:{
+                    border: 0;
+                    border-radius: 0;
+                    border-bottom: 1px solid black;
+                    height: 28px;
+                    font-size: 20px;
+                    width: 100%;
+                }
+                .textInput:first-of-type{
+                    margin-bottom: 10px;
+                }
+                .heading{
+                    margin: 50px 0 0 0;
+                    font-weight: 400
                 }
             `}</style>
             <form className={'form'}>
-                <h1>Login</h1>
-                <input type="email" name="email" onChange={onChange} />
-                <input type="password" name="password" onChange={onChange} />
-                <button onClick={submit}>Login</button>
+                <h1 className={'heading'} >Login</h1>
+                <div className='input-container'>
+                    <input type="email" className={'textInput'} name="email" onChange={onChange} placeholder='Username' />
+                    <input type="password" className={'textInput'} name="password" onChange={onChange} placeholder='Password'/>
+                </div>
+                <button onClick={submit} className={'button'}>Login</button>
             </form>
         </div>
     )
