@@ -8,6 +8,8 @@ class signInContainer extends React.Component {
 
         this.onChange = this.onChange.bind(this)
         this.submit = this.submit.bind(this)
+
+        this.state = {open : false}
         
     }
     
@@ -31,8 +33,25 @@ class signInContainer extends React.Component {
         e.preventDefault()
     }
 
+    openDialog(e){
+        e.preventDefault()
+        this.setState({open : true})
+    }
+
+    closeDialog(e){
+        e.preventDefault()
+        if(e.target === e.currentTarget){
+            this.setState({open : false})
+        }
+        
+    }
+
     render() {
-        return <SignIn onChange={this.onChange} submit={this.submit}/>
+        return <>
+            <span onClick={(e) => this.openDialog(e)}>Sign in</span>
+            {this.state.open && <SignIn onChange={this.onChange} submit={this.submit} onClose={(e) => this.closeDialog(e)}/>}
+        </>
+        
     }
 }
 

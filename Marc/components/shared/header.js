@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-
+import SigninContainer from '../auth/signInContainer'
 import Colors from '../../util/colors'
 
 const Header = () => {
@@ -47,9 +47,7 @@ const Header = () => {
                     </Link>
                 </div>
                 <div className="end">
-                    <a href="#" className="nav-end nav-link nav-text" >
-                        Login
-                    </a>
+                    <SigninContainer />
                     <a href="#" className="nav-link nav-text">
                         Register
                     </a>

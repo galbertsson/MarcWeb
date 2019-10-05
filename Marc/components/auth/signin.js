@@ -1,17 +1,16 @@
 import React from 'react'
 import Colors from '../../util/colors'
 
-const SignIn = ({onChange, submit}) => {
+const SignIn = ({onChange, submit, onClose}) => {
     return (
-        <div className={'login'}>
+        <div className={'login'} onClick={onClose}>
             <style jsx>{`
                 .login{
-                    /*width: 500px;
-                    height: 200px;*/
                     width: 100vw;
                     height: 100vh;
                     position: fixed;
                     top: 0;
+                    left: 0;
                     background-color: rgba(0,0,0,0.25);
                     display: flex;
                     justify-content: center;
@@ -27,7 +26,8 @@ const SignIn = ({onChange, submit}) => {
                     padding-bottom: 50px;
                     display: flex;
                     flex-direction: column;
-                    justify-content: space-between
+                    justify-content: space-between;
+                    position: relative;
                 }
                 .button{
                     width: 60px;
@@ -66,6 +66,7 @@ const SignIn = ({onChange, submit}) => {
             `}</style>
             <form className={'form'}>
                 <h1 className={'heading'} >Login</h1>
+                <span style={{position: 'absolute', top: '10px', right: '10px' }} onClick={onClose}>X</span>
                 <div className='input-container'>
                     <input type="email" className={'textInput'} name="email" onChange={onChange} placeholder='Username' />
                     <input type="password" className={'textInput'} name="password" onChange={onChange} placeholder='Password'/>
