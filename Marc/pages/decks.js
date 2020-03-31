@@ -2,6 +2,7 @@ import React from 'react';
 import fetch from 'isomorphic-unfetch';
 import { withRouter } from 'next/router'
 import DeckPicker from '../components/display/deckPicker';
+import Colors from '../util/colors'
 
 class Decks extends React.Component {
 
@@ -40,16 +41,29 @@ class Decks extends React.Component {
     }
 
     render(){
+      let testDecks =
+        [
+          {title: "T1", nrNotes:0, id:1},
+          {title: "T2", nrNotes:1,id:2},
+          {title: "T3", nrNotes:2,id:3},
+          {title: "T4", nrNotes:3,id:4},
+          {title: "T5", nrNotes:4,id:5},
+          {title: "T6", nrNotes:5,id:6},
+          {title: "T5", nrNotes:4,id:5},
+          {title: "T6", nrNotes:5,id:6},
+        ]
+
     return <>
         <style jsx>{`
-        .style{
-            color: green;
+        .root{
+            background-color: ${Colors.backgroundColor};
+            min-height: 100vh;
         }
         `}
         </style>
 
-        <div>
-            <DeckPicker decks={this.state.decks} />
+        <div className="root">
+            <DeckPicker decks={testDecks} />
         </div>
     </>
     }

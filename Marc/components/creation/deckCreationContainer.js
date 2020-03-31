@@ -15,90 +15,83 @@ class DeckCreationContainer extends React.Component {
         super(props);
 
         this.state = {
-            notes : (props.notes ? props.notes : []), //Get the supplied notes if there are any
-            text : "",
-            title : (props.title ? props.title : "") //Get the supplied title if there is any
+            notes: (props.notes ? props.notes : []), //Get the supplied notes if there are any
+            text: "",
+            title: (props.title ? props.title : "") //Get the supplied title if there is any
         }
-
-        this.parseHandler = this.parseHandler.bind(this)
-        this.noteChange = this.noteChange.bind(this)
-        this.runParser = this.runParser.bind(this)
-        this.removeNote = this.removeNote.bind(this)
-        this.createDeck = this.createDeck.bind(this)
-        this.newNote = this.newNote.bind(this)
     }
 
-    componentDidUpdate(prevProps){
-        if(prevProps.notes.length === 0 && prevProps.title === "" && this.props.title !== ""){
-            this.setState({notes : this.props.notes, title : this.props.title})
+    componentDidUpdate(prevProps) {
+        if (prevProps.notes && prevProps.notes.length === 0 && prevProps.title === "" && this.props.title !== "") {
+            this.setState({ notes: this.props.notes, title: this.props.title })
         }
     }
 
     parseHandler(text) {
-        this.setState({text : text})
+        this.setState({ text: text })
     }
 
-    runParser(){
+    runParser() {
         let tmp = textParser(this.state.text, " - ")//TODO: For now hard-code the split character
 
-        this.setState({notes : tmp})
+        this.setState({ notes: tmp })
     }
 
-    noteChange(index, text, isFront){
+    noteChange(index, text, isFront) {
         //Check if cloze note
-        if(this.state.notes[index].text !== undefined){
+        if (this.state.notes[index].text !== undefined) {
             const notes = update(this.state.notes, {
-                    [index] : {
-                        text : {$set : text}
-                    }
+                [index]: {
+                    text: { $set: text }
+                }
             })
 
-            this.setState({notes})
+            this.setState({ notes })
         }
         //If Basic note
-        else{
+        else {
             const property = isFront ? "front" : "back"
 
             const notes = update(this.state.notes, {
-                [index] : {
-                    [property] : {$set : text}
+                [index]: {
+                    [property]: { $set: text }
                 }
             })
-            
-            this.setState({notes})
+
+            this.setState({ notes })
         }
     }
 
-    newNote(type){
+    newNote(type) {
         let notes = this.state.notes.slice()
 
-        if(type === "cloze"){
+        if (type === "cloze") {
             notes.push(new ClozeNote(""))
-        }else if (type === "basic"){
-            notes.push(new BasicNote("",""))
+        } else if (type === "basic") {
+            notes.push(new BasicNote("", ""))
         }
-        
-        this.setState({notes : notes})
+
+        this.setState({ notes: notes })
     }
 
-    removeNote(index){        
+    removeNote(index) {
         const notes = this.state.notes.slice()
         notes.splice(index, 1)
-        
-        this.setState({notes : notes})
+
+        this.setState({ notes: notes })
     }
 
-    createDeck(){
+    createDeck() {
         this.props.callback(this.state.title, this.state.notes)
     }
-    
-    render(){
+
+    render() {
         return <>
-            <TextInput textCallBack={this.parseHandler} buttonCallBack={this.runParser}/>
-            <TitleInput title={this.state.title} titleCallback={(title) => this.setState({title : title})}/>
-            <CreateNewNote newNoteCallback={this.newNote}/>
-            <EditableNotes notes={this.state.notes} deleteCallBack={this.removeNote} changeCallBack={this.noteChange}/>
-            <CreateButton callback={this.createDeck}/>
+            <TextInput textCallBack={() => this.parseHandler} buttonCallBack={() => this.runParser()} />
+            <TitleInput title={this.state.title} titleCallback={(title) => this.setState({ title: title })} />
+            <CreateNewNote newNoteCallback={(note) => this.newNote(note)} />
+            <EditableNotes notes={this.state.notes} deleteCallBack={(index) => this.removeNote(index)} changeCallBack={() => this.noteChange} />
+            <CreateButton callback={() => this.createDeck} />
         </>
     }
 }

@@ -20,7 +20,7 @@ export default class AuthenticationContainer extends Component {
         return (
             this.state.loggedIn 
             ? <LogoutContainer firebase={this.props.firebase} />
-            : <SignInContainer firebase={this.props.firebase} />
+            : ""
             
         )
     }

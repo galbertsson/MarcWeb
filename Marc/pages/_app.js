@@ -1,5 +1,6 @@
 import React from 'react';
-import App, { Container } from 'next/app';
+import App, { Container} from 'next/app';
+import Head from 'next/head'
 import firebase from 'firebase';
 import Header from '../components/shared/header';
 
@@ -48,10 +49,19 @@ class MyApp extends App {
     const { Component, pageProps } = this.props;
 
     return (
-        <Container>
-          <Header />
-          <Component {...pageProps} firebase={this.firebase} user={this.state.user}/>  
-        </Container>
+          <Container>
+              <style jsx>{`
+                  #main-area : {
+                    background-color : #E1E2E1  
+                  }
+              `}</style>
+              <Head>
+              </Head>
+              <div id="main-area">
+                <Header firebase={this.props.firebase}/>
+                <Component {...pageProps} firebase={this.firebase} user={this.state.user}/>  
+              </div>
+          </Container>
     );
   }
 }
