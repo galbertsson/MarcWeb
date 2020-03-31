@@ -58,7 +58,7 @@ class MyApp extends App {
               <Head>
               </Head>
               <div id="main-area">
-                <Header />
+                <Header firebase={this.props.firebase}/>
                 <Component {...pageProps} firebase={this.firebase} user={this.state.user}/>  
               </div>
           </Container>
