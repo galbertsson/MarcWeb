@@ -1,7 +1,8 @@
 import React from 'react';
-import DeckCreationContainer from '../components/creation/deckCreationContainer';
+
 import fetch from 'isomorphic-unfetch';
 import { withRouter } from 'next/router'
+import DeckCreationContainer from '../../components/creation/deckCreationContainer';
 
 class Edit extends React.Component {
 
@@ -73,17 +74,18 @@ class Edit extends React.Component {
         </style>
 
         <div>
-            <DeckCreationContainer title={this.state.data.title} notes={this.state.data.notes} callback={this.callback}/>
+            TEST
+            {/* <DeckCreationContainer title={this.state.data.title} notes={this.state.data.notes} callback={this.callback}/> */}
         </div>
     </>
     }
 
-    static async getInitialProps(context){
+    static async getInitialProps({params}){
         return {
-          id : context.query.id
+          id : params.id
         }
     }
 }
 
-export default withRouter(Edit);
+export default Edit;
 

@@ -3,7 +3,6 @@ import TextInput from "./textInput";
 import ClozeNote from "../../util/ClozeNote";
 import BasicNote from "../../util/BasicNote";
 
-import update from 'immutability-helper';
 import CreateButton from "./createButton";
 import EditableNotes from "./editableNotes";
 import CreateNewNote from "./createNewNote";
@@ -39,7 +38,7 @@ class DeckCreationContainer extends React.Component {
 
     noteChange(index, text, isFront) {
         //Check if cloze note
-        if (this.state.notes[index].text !== undefined) {
+        /* if (this.state.notes[index].text !== undefined) {
             const notes = update(this.state.notes, {
                 [index]: {
                     text: { $set: text }
@@ -59,7 +58,7 @@ class DeckCreationContainer extends React.Component {
             })
 
             this.setState({ notes })
-        }
+        } */
     }
 
     newNote(type) {

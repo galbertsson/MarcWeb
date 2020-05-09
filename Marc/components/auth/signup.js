@@ -1,6 +1,5 @@
 import React from 'react';
 import { withRouter } from 'next/router'
-import firebase from 'firebase';
 
 class Signup extends React.Component {
 
@@ -10,11 +9,11 @@ class Signup extends React.Component {
     }
 
     register(e){
-        this.props.firebase.createUserWithEmailAndPassword(this.state.email, this.state.password)
+        /* this.props.firebase.createUserWithEmailAndPassword(this.state.email, this.state.password)
         .then(this.setState({email : "", password : ""}))
         .catch(error => {
             if(error){}
-        })
+        }) */
         e.preventDefault()
     }
 
