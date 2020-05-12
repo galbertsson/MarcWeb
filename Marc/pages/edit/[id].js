@@ -1,15 +1,12 @@
 import React from 'react';
-
-import fetch from 'isomorphic-unfetch';
-import { withRouter } from 'next/router'
 import DeckCreationContainer from '../../components/creation/deckCreationContainer';
 
 class Edit extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props)
 
-        this.state = {data : {title : "", notes : []}}
+        this.state = { data: { title: "", notes: [] } }
 
         this.callback = this.callback.bind(this)
         this.fetchDeck = this.fetchDeck.bind(this)
@@ -19,8 +16,8 @@ class Edit extends React.Component {
      * @param {string} title The title of the deck being created
      * @param {Array} notes The notes in the deck
      */
-    callback(title, notes){
-        this.props.user.getIdToken()
+    callback(title, notes) {
+        /* this.props.user.getIdToken()
         .then((token) => 
             fetch("http://localhost:8080/decks/edit", {
             method : 'POST',
@@ -32,11 +29,11 @@ class Edit extends React.Component {
                 id : this.props.id,
                 title : title,
                 notes : notes})
-            }))
+            })) */
     }
 
-    fetchDeck(){
-        return new Promise((resolve, reject) =>{this.props.user.getIdToken()
+    fetchDeck() {
+        /* return new Promise((resolve, reject) =>{this.props.user.getIdToken()
         .then((token) => 
             fetch(`http://localhost:8080/decks/${this.props.id}`, {
                 method : 'GET',
@@ -47,42 +44,41 @@ class Edit extends React.Component {
         )
         .then((res) => res.json())
         .then((data) => resolve(data))
-        })
+        }) */
     }
 
-    componentDidMount(){
-        if(this.props.user){
-          this.fetchDeck()
-          .then((jsonRes) => this.setState({data : jsonRes}))
+    componentDidMount() {
+        if (this.props.user) {
+            this.fetchDeck()
+                .then((jsonRes) => this.setState({ data: jsonRes }))
         }
-      }
-  
-    componentDidUpdate(prevProps){
-    if(this.props.user && !prevProps.user){
-        this.fetchDeck()
-        .then((jsonRes) => this.setState({data : jsonRes}))
-    }
     }
 
-    render(){
-    return <>
-        <style jsx>{`
+    componentDidUpdate(prevProps) {
+        if (this.props.user && !prevProps.user) {
+            this.fetchDeck()
+                .then((jsonRes) => this.setState({ data: jsonRes }))
+        }
+    }
+
+    render() {
+        return <>
+            <style jsx>{`
         .style{
             color: green;
         }
         `}
-        </style>
+            </style>
 
-        <div>
-            TEST
-            {/* <DeckCreationContainer title={this.state.data.title} notes={this.state.data.notes} callback={this.callback}/> */}
-        </div>
-    </>
+            <div>
+                <DeckCreationContainer title={this.state.data.title} notes={this.state.data.notes} callback={this.callback} />
+            </div>
+        </>
     }
 
-    static async getInitialProps({params}){
+    static async getInitialProps({ params }) {
         return {
-          id : params.id
+            id: 1//params.id
         }
     }
 }
