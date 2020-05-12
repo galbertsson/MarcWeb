@@ -1,34 +1,13 @@
-import { withRouter } from 'next/router'
-import firebase from 'firebase';
-import Signup from '../components/auth/signup';
-import AuthenticationContainer from '../components/auth/AuthenticationContainer';
+import Head from 'next/head'
 
-class Index extends React.Component {
+export default function Home() {
+  return (
+    <div className="container">
+      <Head>
+        <title>Create Next App</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
 
-  uiConfig = {
-    signInFlow: 'popup',
-    signInSuccessUrl: '/',
-    signInOptions: [
-      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-      firebase.auth.EmailAuthProvider.PROVIDER_ID
-    ],
-    credentialHelper : 'none'
-  }
-
-  render(){
-    
-    return <div>
-    <style jsx>{`
-      p {
-        color: red;
-      }
-    `}</style>
-    <p>Hello World!</p>
-
-    <Signup firebase={this.props.firebase} />
-    <AuthenticationContainer firebase={this.props.firebase} />
-
-  </div>
-  }
+    </div>
+  )
 }
-export default withRouter(Index);

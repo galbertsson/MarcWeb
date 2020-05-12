@@ -9,12 +9,6 @@ export default class AuthenticationContainer extends Component {
         super(data)
         this.state = {loggedIn : false}
     }
-
-    componentDidMount(){
-        this.props.firebase.auth().onAuthStateChanged((user) => 
-            this.setState({loggedIn : user !== null})
-        )
-    }
     
     render() {
         return (

@@ -15,7 +15,7 @@ class signInContainer extends React.Component {
     }
     
     submit(e){
-        this.props.firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+        /* this.props.firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
         .then(this.setState({email : "", password : ""}))
         .catch(function(error) {
             // Handle Errors here.
@@ -24,7 +24,7 @@ class signInContainer extends React.Component {
             console.log(error.code)
             console.log(error.message)
             // ...
-        });
+        }); */
 
 
         e.preventDefault()

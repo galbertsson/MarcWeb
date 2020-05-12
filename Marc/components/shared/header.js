@@ -4,8 +4,6 @@ import SigninContainer from '../auth/signInContainer'
 import Colors from '../../util/colors'
 
 const Header = ({firebase}) => {
-
-    console.log(firebase)
     return (
         <>
             <style jsx>{`
