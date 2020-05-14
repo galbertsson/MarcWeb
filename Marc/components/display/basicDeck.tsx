@@ -1,9 +1,13 @@
 import React from 'react'
 import Link from 'next/link'
 import Colors from '../../util/colors'
+import Deck from '../../util/Deck'
 
+interface BasicDeckPros {
+    deck: Deck
+}
 
-const BasicDeck = ({deck}) => (
+const BasicDeck = ({ deck }: BasicDeckPros) => (
     <>
         <style jsx>{`
             .deck {
@@ -19,10 +23,10 @@ const BasicDeck = ({deck}) => (
         `}</style>
         <Link href={`/edit/${deck.id}`}>
             <a>
-                <div className={'deck'}>    
+                <div className={'deck'}>
                     {deck.title}
-                    <br/>
-                    {deck.nrNotes} {deck.nrNotes !== 1 ? "notes" : "note"}
+                    <br />
+                    {deck.notes.length} {deck.notes.length !== 1 ? 'notes' : 'note'}
                 </div>
             </a>
         </Link>

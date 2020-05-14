@@ -1,14 +1,27 @@
 import React from 'react';
 /* import fetch from 'isomorphic-unfetch'; */
-import { withRouter } from 'next/router'
+import { withRouter, Router } from 'next/router'
 import DeckPicker from '../components/display/deckPicker';
 import Colors from '../util/colors'
+import User from '../util/User';
+import Deck from '../util/Deck';
 
-class Decks extends React.Component {
+interface DeckProps {
+  router: Router;
+  user: User;
+}
 
-  constructor(props) {
+interface DeckState {
+  decks: Deck[]
+};
+
+class Decks extends React.Component<DeckProps, DeckState> {
+
+  constructor(props: DeckProps) {
     super(props)
-    this.state = { decks: [] }
+    this.state = {
+      decks: []
+    }
   }
 
   fetchDecks() {
@@ -28,29 +41,29 @@ class Decks extends React.Component {
 
   componentDidMount() {
     if (this.props.user) {
-      this.fetchDecks()
-        .then((jsonRes) => this.setState({ decks: jsonRes }))
+      /* this.fetchDecks()
+        .then((jsonRes) => this.setState({ decks: jsonRes })) */
     }
   }
 
-  componentDidUpdate(prevProps) {
+  /* componentDidUpdate(prevProps) {
     if (this.props.user && !prevProps.user) {
       this.fetchDecks()
         .then((jsonRes) => this.setState({ decks: jsonRes }))
     }
-  }
+  } */
 
   render() {
     let testDecks =
       [
-        { title: "T1", nrNotes: 0, id: 1 },
-        { title: "T2", nrNotes: 1, id: 2 },
-        { title: "T3", nrNotes: 2, id: 3 },
-        { title: "T4", nrNotes: 3, id: 4 },
-        { title: "T5", nrNotes: 4, id: 5 },
-        { title: "T6", nrNotes: 5, id: 6 },
-        { title: "T5", nrNotes: 4, id: 5 },
-        { title: "T6", nrNotes: 5, id: 6 },
+        { title: "T1", nrNotes: [], id: 1 },
+        { title: "T2", nrNotes: [], id: 2 },
+        { title: "T3", nrNotes: [], id: 3 },
+        { title: "T4", nrNotes: [], id: 4 },
+        { title: "T5", nrNotes: [], id: 5 },
+        { title: "T6", nrNotes: [], id: 6 },
+        { title: "T5", nrNotes: [], id: 5 },
+        { title: "T6", nrNotes: [], id: 6 },
       ]
 
     return <>
