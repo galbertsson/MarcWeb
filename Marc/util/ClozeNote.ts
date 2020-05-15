@@ -1,5 +1,8 @@
 class ClozeNote{
-    constructor(text){
+    type: string
+    text: string
+
+    constructor(text: string){
         this.text = text
         this.type = "ClozeNote"
     }

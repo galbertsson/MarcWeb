@@ -2,8 +2,9 @@ import React from 'react'
 import Link from 'next/link'
 import SigninContainer from '../auth/signInContainer'
 import Colors from '../../util/colors'
+import User from '../../util/User'
 
-const Header = ({firebase}) => {
+const Header = ({ }) => {
     return (
         <>
             <style jsx>{`
@@ -46,7 +47,7 @@ const Header = ({firebase}) => {
                     </Link>
                 </div>
                 <div className="end">
-                    <SigninContainer firebase={firebase}/>
+                    <SigninContainer />
                     <a href="#" className="nav-link nav-text">
                         Register
                     </a>
