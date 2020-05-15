@@ -56,14 +56,12 @@ class Decks extends React.Component<DeckProps, DeckState> {
   render() {
     let testDecks =
       [
-        { title: "T1", nrNotes: [], id: 1 },
-        { title: "T2", nrNotes: [], id: 2 },
-        { title: "T3", nrNotes: [], id: 3 },
-        { title: "T4", nrNotes: [], id: 4 },
-        { title: "T5", nrNotes: [], id: 5 },
-        { title: "T6", nrNotes: [], id: 6 },
-        { title: "T5", nrNotes: [], id: 5 },
-        { title: "T6", nrNotes: [], id: 6 },
+        { title: "T1", notes: [], id: '1' },
+        { title: "T2", notes: [], id: '2' },
+        { title: "T3", notes: [], id: '3' },
+        { title: "T4", notes: [], id: '4' },
+        { title: "T5", notes: [], id: '5' },
+        { title: "T6", notes: [], id: '6' },
       ]
 
     return <>

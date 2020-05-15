@@ -26,7 +26,7 @@ const BasicDeck = ({ deck }: BasicDeckPros) => (
                 <div className={'deck'}>
                     {deck.title}
                     <br />
-                    {deck.notes.length} {deck.notes.length !== 1 ? 'notes' : 'note'}
+                    {deck.notes?.length ?? 0} {deck.notes?.length !== 1 ? 'notes' : 'note'}
                 </div>
             </a>
         </Link>

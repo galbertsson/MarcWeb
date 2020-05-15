@@ -1,16 +1,27 @@
+import React from 'react';
 import { textParser } from "../../util/textParser";
 import TextInput from "./textInput";
 import ClozeNote from "../../util/ClozeNote";
 import BasicNote from "../../util/BasicNote";
-
-import CreateButton from "./createButton";
 import EditableNotes from "./editableNotes";
 import CreateNewNote from "./createNewNote";
 import TitleInput from "./titleInput";
 
-class DeckCreationContainer extends React.Component {
+interface DeckCreationContainerProps {
+    title?: string;
+    notes?: (BasicNote | ClozeNote)[];
+    callback: (title: string, notes: (ClozeNote | BasicNote)[]) => void;
+}
 
-    constructor(props) {
+interface DeckCreationContainerState {
+    notes: (BasicNote | ClozeNote)[];
+    text: string;
+    title: string;
+}
+
+class DeckCreationContainer extends React.Component<DeckCreationContainerProps, DeckCreationContainerState> {
+
+    constructor(props: DeckCreationContainerProps) {
         super(props);
 
         this.state = {
@@ -20,13 +31,14 @@ class DeckCreationContainer extends React.Component {
         }
     }
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.notes && prevProps.notes.length === 0 && prevProps.title === "" && this.props.title !== "") {
+    //TODO: Have a look at this, this is most likely a bad idea to start with
+    componentDidUpdate(prevProps: DeckCreationContainerProps) {
+        if (prevProps.notes && prevProps.notes.length === 0 && prevProps.title === "" && this.props.title !== "" && this.props.notes && this.props.title) {
             this.setState({ notes: this.props.notes, title: this.props.title })
         }
     }
 
-    parseHandler(text) {
+    parseHandler(text: string) {
         this.setState({ text: text })
     }
 
@@ -36,7 +48,7 @@ class DeckCreationContainer extends React.Component {
         this.setState({ notes: tmp })
     }
 
-    noteChange(index, text, isFront) {
+    noteChange(index: number, text: string, isFront?: boolean) {
         //Check if cloze note
         /* if (this.state.notes[index].text !== undefined) {
             const notes = update(this.state.notes, {
@@ -61,7 +73,7 @@ class DeckCreationContainer extends React.Component {
         } */
     }
 
-    newNote(type) {
+    newNote(type: string) {
         let notes = this.state.notes.slice()
 
         if (type === "cloze") {
@@ -73,7 +85,7 @@ class DeckCreationContainer extends React.Component {
         this.setState({ notes: notes })
     }
 
-    removeNote(index) {
+    removeNote(index: number) {
         const notes = this.state.notes.slice()
         notes.splice(index, 1)
 
@@ -88,9 +100,9 @@ class DeckCreationContainer extends React.Component {
         return <>
             <TextInput textCallBack={() => this.parseHandler} buttonCallBack={() => this.runParser()} />
             <TitleInput title={this.state.title} titleCallback={(title) => this.setState({ title: title })} />
-            <CreateNewNote newNoteCallback={(note) => this.newNote(note)} />
-            <EditableNotes notes={this.state.notes} deleteCallBack={(index) => this.removeNote(index)} changeCallBack={() => this.noteChange} />
-            <CreateButton callback={() => this.createDeck} />
+            <CreateNewNote newNoteCallback={(type: string) => this.newNote(type)} />
+            <EditableNotes notes={this.state.notes} deleteCallBack={(index: number) => this.removeNote(index)} changeCallBack={() => this.noteChange} />
+            <button onClick={() => this.createDeck()}>Create</button>
         </>
     }
 }
