@@ -1,24 +1,17 @@
-## Environment variables:
-To setup the environment variables a `next.config.js` file is needed.
-The file should have the following structure
-
-```javascript
 const { PHASE_DEVELOPMENT_SERVER } = require('next/constants')
 
 module.exports = (phase) => {
     if (phase === PHASE_DEVELOPMENT_SERVER) {
         return {
             env: {
-                API_URL: 'YOUR_DEVELOPMENT_URL'
+                API_URL: 'http://localhost:8080'
             }
         }
     }
 
     return {
         env: {
-            API_URL: 'YOUR_PRODUCTION_URL'
+            API_URL: 'http://localhost:8080'
         }
     }
 }
-```
-
