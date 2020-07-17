@@ -1,27 +1,30 @@
 import superAgent from 'superagent';
-import { API_URL } from '../../settings/setting';
+import { PATHS, TYPES, getRequestData } from './routes';
 
-const sendPost = (path: string, body: any): Promise<any> => {
-    const csrfToken = window.localStorage.getItem('csrf_token');
+const sendRequest = async (path: PATHS, params: string[], body?: object): Promise<any> => {
+    let csrfToken = window.localStorage.getItem('csrf_token');
 
     if (!csrfToken) {
-        superAgent
-            .get(`${API_URL}`)
-        // TODO: Fetch csrf token
+        const { url } = getRequestData(PATHS.CSRF, []);
+        const csrfResponse = await superAgent.get(url)
+        const csrfTokenResponse = csrfResponse.body?.token as string;
+        window.localStorage.setItem('csrf_token', csrfTokenResponse);
+        csrfToken = csrfTokenResponse;
     }
 
-    return new Promise((resolve, reject) => {
-        //If 200, resolve the response
-        
-        //If not 200, reject with the error
-    })
-}
+    const { url, method } = getRequestData(path, params);
 
-const sendGet = () => {
-
+    if (method === TYPES.POST) {
+        return superAgent.post(url)
+            .send(body)
+            .set('csrf-token', csrfToken)
+    } else if (method === TYPES.GET) {
+        return await superAgent.get(url);
+    } else if (method === TYPES.DELETE) {
+        return superAgent.delete(url)
+    }
 }
 
 export {
-    sendPost,
-    sendGet
+    sendRequest
 }
