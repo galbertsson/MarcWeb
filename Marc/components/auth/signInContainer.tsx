@@ -36,7 +36,7 @@ class signInContainer extends React.Component<SignInContainerProps, SignInContai
 
     submit(e: React.FormEvent<HTMLInputElement>) {
         const { email, password } = this.state;
-        sendRequest(PATHS.LOGIN, [], {username: email, password: password});
+        sendRequest(PATHS.LOGIN, [], {username: email, password});
 
         e.preventDefault()
     }

@@ -3,6 +3,7 @@ import Link from 'next/link'
 import SigninContainer from '../auth/signInContainer'
 import Colors from '../../util/colors'
 import User from '../../util/User'
+import Signup from '../auth/signup'
 
 const Header = ({ }) => {
     return (
@@ -48,9 +49,7 @@ const Header = ({ }) => {
                 </div>
                 <div className="end">
                     <SigninContainer />
-                    <a href="#" className="nav-link nav-text">
-                        Register
-                    </a>
+                    <Signup />
                 </div>
             </nav>
         </>

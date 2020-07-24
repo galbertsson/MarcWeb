@@ -68,8 +68,8 @@ const SignIn = ({onChange, submit, onClose}) => {
                 <h1 className={'heading'} >Login</h1>
                 <span style={{position: 'absolute', top: '10px', right: '10px' }} onClick={() => onClose()}>X</span>
                 <div className='input-container'>
-                    <input type="email" className={'textInput'} name="email" onChange={onChange} placeholder='Username' />
-                    <input type="password" className={'textInput'} name="password" onChange={onChange} placeholder='Password'/>
+                    <input type="email" className={'textInput'} name="email" onChange={(e) => onChange(e)} placeholder='Username' />
+                    <input type="password" className={'textInput'} name="password" onChange={(e) => onChange(e)} placeholder='Password'/>
                 </div>
                 <button onClick={submit} className={'button'}>Login</button>
             </form>
