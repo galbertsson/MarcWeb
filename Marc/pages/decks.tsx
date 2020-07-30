@@ -1,5 +1,4 @@
 import React from 'react';
-/* import fetch from 'isomorphic-unfetch'; */
 import { withRouter, Router } from 'next/router'
 import DeckPicker from '../components/display/deckPicker';
 import Colors from '../util/colors'

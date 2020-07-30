@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import SignIn from './signin';
-import { sendRequest } from '../communication/communication';
-import { PATHS } from '../communication/routes';
+import { login } from '../../services/auth/Auth';
+import { strategies } from '../../services/auth/strategy/Strategy';
 
 interface SignInContainerProps {
 
@@ -36,7 +36,8 @@ class signInContainer extends React.Component<SignInContainerProps, SignInContai
 
     submit(e: React.FormEvent<HTMLInputElement>) {
         const { email, password } = this.state;
-        sendRequest(PATHS.LOGIN, [], {username: email, password});
+        // sendRequest(PATHS.LOGIN, [], {username: email, password});
+        login(strategies.USERNAMEPASSWORD, email, password);
 
         e.preventDefault()
     }

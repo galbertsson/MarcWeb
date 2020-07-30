@@ -1,7 +1,6 @@
 import React from 'react';
-import { withRouter } from 'next/router'
-import { sendRequest } from '../communication/communication';
-import { PATHS } from '../communication/routes';
+import { register } from '../../services/auth/Auth';
+import { strategies } from '../../services/auth/strategy/Strategy';
 
 class Signup extends React.Component<{}, {email: string, password: string}> {
 
@@ -21,7 +20,8 @@ class Signup extends React.Component<{}, {email: string, password: string}> {
         }) */
         const { email, password } = this.state;
 
-        sendRequest(PATHS.REGISTER, [], { username: email , password});
+        // sendRequest(PATHS.REGISTER, [], { username: email , password});
+        register(strategies.USERNAMEPASSWORD, email, password);
     }
 
     //@ts-ignore

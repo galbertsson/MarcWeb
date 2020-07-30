@@ -15,7 +15,6 @@ const sendRequest = async (path: PATHS, params: string[], body?: object): Promis
     const { url, method } = getRequestData(path, params);
 
     if (method === TYPES.POST) {
-        console.log('sending post with data', body);
         return superAgent.post(url)
             .send(body)
             .set('csrf-token', csrfToken)
@@ -27,5 +26,5 @@ const sendRequest = async (path: PATHS, params: string[], body?: object): Promis
 }
 
 export {
-    sendRequest
+    // sendRequest
 }
