@@ -33,7 +33,7 @@ class UsernameAndPassword implements Strategy {
             const { url } = getRequestData(PATHS.CSRF, []);
             const csrfResponse = await superAgent.get(url)
             const csrfTokenResponse = csrfResponse.body?.token as string;
-            
+
             this.setItem(localStorageItem.CSRF_TOKEN, csrfTokenResponse);
             csrfToken = csrfTokenResponse;
         }
@@ -57,12 +57,15 @@ class UsernameAndPassword implements Strategy {
         const { url } = getRequestData(PATHS.LOGIN, []);
 
         let request = superAgent.post(url)
-        .send({username, password});
+            .send({ username, password });
 
         this.dress(request, (dressedRequest => {
             dressedRequest
-            .then(res => console.log(res)) //TODO: Needs to save some stuff here to local storage.
-            .catch(err => console.log(err))
+                .then(res => {
+                    this.setItem(localStorageItem.USERNAME, res.body.username);
+                    this.setItem(localStorageItem.USER_ID, res.body.id);
+                })
+                .catch(err => console.log(err))
         }));
     }
 
@@ -74,16 +77,19 @@ class UsernameAndPassword implements Strategy {
 
         this.dress(request, (dressedRequest) => {
             dressedRequest
-                .then(res => console.log(res))
+                .then(res => {
+                    this.deleteItem(localStorageItem.USERNAME);
+                    this.deleteItem(localStorageItem.USER_ID);
+                })
                 .catch(err => console.log(err))
         })
     }
 
     register(username: string, password: string) {
         const { url } = getRequestData(PATHS.REGISTER, []);
-        
+
         let request = superAgent.post(url)
-            .send({username, password});
+            .send({ username, password });
 
         this.dress(request, (dressedRequest) => {
             dressedRequest
