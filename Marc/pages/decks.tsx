@@ -4,6 +4,7 @@ import DeckPicker from '../components/display/deckPicker';
 import Colors from '../util/colors'
 import User from '../util/User';
 import Deck from '../util/Deck';
+import { getDecks } from '../services/deck/Deck';
 
 interface DeckProps {
   router: Router;
@@ -39,10 +40,10 @@ class Decks extends React.Component<DeckProps, DeckState> {
   }
 
   componentDidMount() {
-    if (this.props.user) {
+    console.log('Going to get decks!');
+      getDecks((decks) => this.setState({decks}))
       /* this.fetchDecks()
         .then((jsonRes) => this.setState({ decks: jsonRes })) */
-    }
   }
 
   /* componentDidUpdate(prevProps) {
@@ -53,7 +54,7 @@ class Decks extends React.Component<DeckProps, DeckState> {
   } */
 
   render() {
-    let testDecks =
+/*     let testDecks =
       [
         { title: "T1", notes: [], id: '1' },
         { title: "T2", notes: [], id: '2' },
@@ -61,7 +62,7 @@ class Decks extends React.Component<DeckProps, DeckState> {
         { title: "T4", notes: [], id: '4' },
         { title: "T5", notes: [], id: '5' },
         { title: "T6", notes: [], id: '6' },
-      ]
+      ] */
 
     return <>
       <style jsx>{`
@@ -73,7 +74,7 @@ class Decks extends React.Component<DeckProps, DeckState> {
       </style>
 
       <div className="root">
-        <DeckPicker decks={testDecks} />
+        <DeckPicker decks={this.state.decks} />
       </div>
     </>
   }

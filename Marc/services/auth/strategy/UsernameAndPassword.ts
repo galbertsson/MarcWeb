@@ -1,6 +1,6 @@
 import { Strategy } from './Strategy';
 import superAgent, { SuperAgentRequest } from 'superagent';
-import { getRequestData, PATHS } from '../../../components/communication/routes';
+import { getRequestData, PATHS } from '../../../services/routes';
 
 enum localStorageItem {
     CSRF_TOKEN = 'csrf_token',

@@ -1,4 +1,4 @@
-import { SuperAgentRequest } from 'superagent'
+import request, { SuperAgentRequest } from 'superagent'
 import { Strategy } from './strategy/Strategy';
 
 let _currentStrategy: Strategy | undefined;
@@ -16,6 +16,7 @@ const getUserId = () => {
 const login = (auth: Strategy, username: string, password: string) => {
     _currentStrategy = auth;
     _currentStrategy.login(username, password);
+    console.log('Doing login!');
 }
 
 const logout = () => {
@@ -27,16 +28,17 @@ const register = (auth: Strategy, username: string, password: string) => {
     _currentStrategy.register(username, password);
 }
 
-const relay = async (request: SuperAgentRequest) => {
-    //Prepare to send
-    request.send();
-
+const relay = async (request: SuperAgentRequest, cb: (res: request.Response) => void) => {
+    console.log('Going to relay!');
+    console.log('strat is ', _currentStrategy);
     _currentStrategy?.dress(request, (dressedRequest) => {
+        console.log('Got a dressed request!');
         dressedRequest.then(res => {
             console.log('Relay res to consumer?', res)
+            cb(res);
         })
         .catch(err => {
-            console.log('Relay err to consumer?', err)
+            console.log('Relay err to consumer?', err);
         })    
     });
 }

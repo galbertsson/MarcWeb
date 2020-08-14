@@ -1,4 +1,4 @@
-import { API_URL } from "../../settings/setting";
+import { API_URL } from '../settings/setting';
 
 export enum PATHS {
     CSRF = 'csrf', //get
@@ -30,11 +30,11 @@ export const getRequestData = (path: PATHS, params: string[]): { url: string, me
             return { url, method: TYPES.POST };
         case PATHS.REGISTER:
             return { url, method: TYPES.POST };
-        case PATHS.GET_DECK:
-            return { url: `${url}/${params[0]}`, method: TYPES.GET };
+        /* case PATHS.GET_DECK:
+            return { url: `${url}/${params[0]}`, method: TYPES.GET }; */
         case PATHS.CREATE_DECK:
             return { url, method: TYPES.POST };
-        case PATHS.GET_DECK:
+        case PATHS.GET_DECKS:
             return { url, method: TYPES.GET };
         case PATHS.EDIT_DECK:
             return { url, method: TYPES.POST };
