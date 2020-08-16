@@ -49,28 +49,18 @@ class DeckCreationContainer extends React.Component<DeckCreationContainerProps, 
     }
 
     noteChange(index: number, text: string, isFront?: boolean) {
-        //Check if cloze note
-        /* if (this.state.notes[index].text !== undefined) {
-            const notes = update(this.state.notes, {
-                [index]: {
-                    text: { $set: text }
-                }
-            })
+        const newNotes = [...this.state.notes];
+        const newNote = newNotes[index];
 
-            this.setState({ notes })
+        if (newNote.type === 'basicNote') {
+            const property = isFront ? 'front' : 'back'
+            newNote[property] = text;
+        } else if (newNote.type === 'clozeNote') {
+            newNote.text = text;
         }
-        //If Basic note
-        else {
-            const property = isFront ? "front" : "back"
 
-            const notes = update(this.state.notes, {
-                [index]: {
-                    [property]: { $set: text }
-                }
-            })
-
-            this.setState({ notes })
-        } */
+        newNotes[index] = newNote;
+        this.setState({notes: newNotes});
     }
 
     newNote(type: string) {
@@ -101,7 +91,10 @@ class DeckCreationContainer extends React.Component<DeckCreationContainerProps, 
             <TextInput textCallBack={() => this.parseHandler} buttonCallBack={() => this.runParser()} />
             <TitleInput title={this.state.title} titleCallback={(title) => this.setState({ title: title })} />
             <CreateNewNote newNoteCallback={(type: string) => this.newNote(type)} />
-            <EditableNotes notes={this.state.notes} deleteCallBack={(index: number) => this.removeNote(index)} changeCallBack={() => this.noteChange} />
+            <EditableNotes 
+            notes={this.state.notes} 
+            deleteCallBack={(index: number) => this.removeNote(index)} 
+            changeCallBack={(index, text, isFront) => this.noteChange(index, text, isFront)} />
             <button onClick={() => this.createDeck()}>Create</button>
         </>
     }

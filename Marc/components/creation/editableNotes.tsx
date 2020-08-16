@@ -17,7 +17,7 @@ const EditableNotes = (props: EditableNotesProps): JSX.Element => {
                     note={note}
                     index={index}
                     deleteCallBack={props.deleteCallBack}
-                    changeCallBack={props.changeCallBack} />
+                    changeCallBack={(index, value, isFront) => props.changeCallBack(index, value, isFront)} />
                 )}
         </>
     } else {

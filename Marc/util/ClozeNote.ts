@@ -1,10 +1,9 @@
-class ClozeNote{
-    type: string
-    text: string
+class ClozeNote {
+    text: string;
+    type: 'clozeNote' = 'clozeNote';
 
     constructor(text: string){
-        this.text = text
-        this.type = "ClozeNote"
+        this.text = text;
     }
 }
 

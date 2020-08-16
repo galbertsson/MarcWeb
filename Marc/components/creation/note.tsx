@@ -13,13 +13,25 @@ const Note = (props: NoteProps): JSX.Element => {
     if (props.note.type === "ClozeNote") {
         return <div>
             Cloze Note:
-            <textarea value={(props.note as ClozeNote).text} onChange={(e) => props.changeCallBack(props.index, e.target.value)}></textarea>
+            <textarea
+                value={(props.note as ClozeNote).text} 
+                onChange={(e) => {
+                    console.log('Change!')
+                    props.changeCallBack(props.index, e.target.value)
+                }} 
+            />
             <button onClick={(e) => props.deleteCallBack(props.index)}>Delete</button>
         </div>
     } else if (props.note.type === "BasicNote") {
         return <div>
             Basic Note:
-            <textarea value={(props.note as BasicNote).front} onChange={(e) => props.changeCallBack(props.index, e.target.value, true)}></textarea>
+            <textarea value={(props.note as BasicNote).front} onChange={(e) => {
+                console.log('chbage!')
+                console.log(e.target.value);
+                props.changeCallBack(props.index, e.target.value, true)
+                
+            }
+                }></textarea>
             <textarea value={(props.note as BasicNote).back} onChange={(e) => props.changeCallBack(props.index, e.target.value, false)}></textarea>
             <button onClick={(e) => props.deleteCallBack(props.index)}>Delete</button>
         </div>
