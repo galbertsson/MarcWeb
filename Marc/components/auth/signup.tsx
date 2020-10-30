@@ -13,15 +13,8 @@ class Signup extends React.Component<{}, { email: string, password: string }> {
     }
 
     register() {
-        /* this.props.firebase.createUserWithEmailAndPassword(this.state.email, this.state.password)
-        .then(this.setState({email : "", password : ""}))
-        .catch(error => {
-            if(error){}
-        }) */
         const { email, password } = this.state;
 
-        // sendRequest(PATHS.REGISTER, [], { username: email , password});
-        // register(strategies.USERNAMEPASSWORD, email, password);
         Auth.getInstance().register(strategies.USERNAMEPASSWORD, email, password);
     }
 

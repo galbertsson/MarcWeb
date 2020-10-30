@@ -1,12 +1,8 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import Colors from '../../util/colors'
-import { AuthContext } from '../../services/auth/AuthProvider';
 
 //@ts-ignore
 const SignIn = ({onChange, submit, onClose}) => {
-    const auth = useContext(AuthContext);
-
-    console.log(auth);
 
     return (
         <div className={'login'} onClick={onClose}>
