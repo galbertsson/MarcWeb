@@ -1,35 +1,39 @@
-import React from 'react';
 import request, { SuperAgentRequest } from 'superagent'
 import User from '../../util/User';
 import { Strategy } from './strategy/Strategy';
 
-type NullableUser = { [P in keyof User]: User[P] | null };
+type UserObserver = (user: User | undefined) => void;
 
-interface AuthState {
-    user?: NullableUser;
-    currentStrategy?: Strategy;
-}
+export default class Auth {
+    private strategy: Strategy | undefined;
+    private user: User | undefined;
+    private userObservers: UserObserver[] = [];
+    private static authInstance: Auth;
 
-interface AuthProps { }
+    private constructor() {}
 
-interface AuthContext {
-    user?: NullableUser;
-    login: (strategy: Strategy, username: string, password: string) => void;
-    logout: () => void;
-    register: (strategy: Strategy, username: string, password: string) => void;
-    relay: (request: SuperAgentRequest, cb: (res: request.Response) => void) => void;
-}
+    static getInstance() {
+        if (!Auth.authInstance) {
+            Auth.authInstance = new Auth();
+        }
 
-const pristineContext: AuthContext = {
-    login: () => {},
-    logout: () => {},
-    register: () => {},
-    relay: () => {}
-}
+        return Auth.authInstance;
+    }
 
-export const AuthContext = React.createContext<AuthContext>(pristineContext);
+    addUserObserver (observer: UserObserver) {
+        console.log('new observer!')
+        this.userObservers.push(observer);
+    }
 
-export class Auth extends React.Component<AuthProps, AuthState> {
+    setStrategy(strategy?: Strategy) {
+        this.strategy = strategy;
+    }
+
+    setUser(user?: User) {
+        this.user = user;
+        console.log('going to tell observers!');
+        this.userObservers.forEach(observer => observer(this.user));
+    }
 
     login(strategy: Strategy, username: string, password: string) {
         strategy.login(username, password, () => {
@@ -37,29 +41,30 @@ export class Auth extends React.Component<AuthProps, AuthState> {
             const username = strategy?.getUsername();
             const userId = strategy?.getUserId();
 
-            this.setState({
-                currentStrategy: strategy,
-                user: { username, id: userId }
-            });
+            if (!username || !userId) {
+                console.error('Login failed, did not get username or userId from strategy');
+                return;
+            }
+
+            this.setStrategy(strategy);
+            this.setUser(new User(userId, username));
         });
 
         console.log('Doing login!');
     }
 
     logout() {
-        this.state.currentStrategy?.logout();
+        this.strategy?.logout();
     }
 
     register(strategy: Strategy, username: string, password: string) {
-        this.state.currentStrategy?.register(username, password);
-        this.setState({
-            currentStrategy: strategy
-        });
+        strategy.register(username, password);
+        this.setStrategy(strategy);
     }
 
     relay(request: SuperAgentRequest, cb: (res: request.Response) => void) {
         console.log('Going to relay!');
-        this.state.currentStrategy?.dress(request, (dressedRequest) => {
+        this.strategy?.dress(request, (dressedRequest) => {
             console.log('Got a dressed request!');
             dressedRequest.then(res => {
                 console.log('Relay res to consumer?', res)
@@ -69,14 +74,6 @@ export class Auth extends React.Component<AuthProps, AuthState> {
                     console.log('Relay err to consumer?', err);
                 })
         });
-    }
-
-    render() {
-        const { user } = this.state;
-
-        return <AuthContext.Provider value={{ user, login: this.login, logout: this.logout, register: this.register, relay: this.relay }}>
-            {this.props.children}
-        </AuthContext.Provider>
     }
 }
 

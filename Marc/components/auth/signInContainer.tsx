@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import SignIn from './signin';
 // import { login } from '../../services/auth/Auth';
 import { strategies } from '../../services/auth/strategy/Strategy';
-import { AuthContext } from '../../services/auth/Auth';
-import { Auth } from '../../services/auth/Auth';
+import Auth from '../../services/auth/Auth';
 
 interface SignInContainerProps {
 
@@ -36,11 +35,9 @@ class signInContainer extends React.Component<SignInContainerProps, SignInContai
         }
     }
 
-    submit(e: React.FormEvent<HTMLInputElement>, auth: Auth) {
+    submit(e: React.FormEvent<HTMLInputElement>) {
         const { email, password } = this.state;
-        // sendRequest(PATHS.LOGIN, [], {username: email, password});
-        auth.login(strategies.USERNAMEPASSWORD, email, password);
-        // login();
+        Auth.getInstance().login(strategies.USERNAMEPASSWORD, email, password);
 
         e.preventDefault()
     }
@@ -60,18 +57,12 @@ class signInContainer extends React.Component<SignInContainerProps, SignInContai
     render() {
         return <>
             <span onClick={(e) => this.openDialog()}>Sign in</span>
-            <AuthContext.Consumer>
-                {auth => this.state.open &&
                 <SignIn
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.onChange(e)}
-                    submit={(e: React.FormEvent<HTMLInputElement>) => this.submit(e, auth)}
+                    submit={(e: React.FormEvent<HTMLInputElement>) => this.submit(e)}
                     onClose={(e: React.MouseEvent) => this.closeDialog(e)}
                 />
-            }
-            </AuthContext.Consumer>
-            
         </>
-
     }
 }
 

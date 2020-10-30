@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import Colors from '../../util/colors'
-import { AuthContext } from '../../services/auth/Auth';
+import { AuthContext } from '../../services/auth/AuthProvider';
 
 //@ts-ignore
 const SignIn = ({onChange, submit, onClose}) => {

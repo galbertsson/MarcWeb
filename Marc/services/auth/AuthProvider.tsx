@@ -1,25 +1,32 @@
-import React, { FC, useContext, useState } from 'react';
-import { Auth } from './Auth';
+import React, { FC, useEffect, useState } from 'react';
+import request, { SuperAgentRequest } from 'superagent'
+import User from '../../util/User';
+import Auth from './Auth';
 
+export const AuthContext = React.createContext<User | undefined>(undefined);
 
-interface AuthProviderProps {
+interface AuthProviderProps { }
 
-}
+export const AuthProvider: FC<AuthProviderProps> = (props) => {
+    const [user, setUser] = useState<User | undefined>();
 
-// const auth = new Auth();
+    useEffect(() => {
+        const auth = Auth.getInstance();
+        console.log('setting up observer!');
+        auth.addUserObserver((user) => {
+            console.log('Detected user change, updating state');
+            setUser(user)
+        });
 
-// export const AuthContext = React.createContext<Auth>(auth);
-
-// Spara allt som auth kan behöva ha här
-// Hur gör vi med login, out etc?
-// Ska det gå igenom denna?
-export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
-    // const auth = useContext(AuthContext);
+        return () => {
+            // TODO: Consider removing from observers
+        }
+    }, []);
 
     return (
-/*         <AuthContext.Provider value={auth}>
-            {children}
-        </AuthContext.Provider> */
-        <span>foo</span>
+        <AuthContext.Provider value={user}>
+            {props.children}
+        </AuthContext.Provider>
+
     )
 }
