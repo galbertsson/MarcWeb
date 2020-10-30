@@ -1,14 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Link from 'next/link'
 import SigninContainer from '../auth/signInContainer'
 import Colors from '../../util/colors'
 import User from '../../util/User'
 import Signup from '../auth/signup'
-import { getUserId, getUsername } from '../../services/auth/Auth'
+import { AuthContext } from '../../services/auth/Auth'
+// import { getUserId, getUsername } from '../../services/auth/Auth'
 
 const Header = ({ }) => {
-    console.log('user id ', getUserId());
-    console.log('username', getUsername());
+    const auth = useContext(AuthContext);
+    console.log('header auth', auth);
+    console.log('user id ', auth.user);
 
     return (
         <>

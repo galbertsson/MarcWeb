@@ -5,7 +5,7 @@ export interface Strategy {
     getUsername: () => string | null;
     getUserId: () => string | null;
     isLoggedIn: () => boolean;
-    login: (username: string, password: string) => void;
+    login: (username: string, password: string, done: () => void) => void;
     logout: () => void;
     register: (username: string, password: string) => void;
     dress: (request: SuperAgentRequest, callback: (req: SuperAgentRequest) => void) => void

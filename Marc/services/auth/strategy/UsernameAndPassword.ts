@@ -53,7 +53,7 @@ class UsernameAndPassword implements Strategy {
         return this.getUserId !== null;
     }
 
-    login(username: string, password: string) {
+    login(username: string, password: string, done: () => void) {
         const { url } = getRequestData(PATHS.LOGIN, []);
 
         let request = superAgent.post(url)
@@ -64,6 +64,7 @@ class UsernameAndPassword implements Strategy {
                 .then(res => {
                     this.setItem(localStorageItem.USERNAME, res.body.username);
                     this.setItem(localStorageItem.USER_ID, res.body.id);
+                    done();
                 })
                 .catch(err => console.log(err))
         }));
