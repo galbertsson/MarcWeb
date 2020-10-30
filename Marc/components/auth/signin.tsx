@@ -1,7 +1,9 @@
 import React from 'react'
 import Colors from '../../util/colors'
 
+//@ts-ignore
 const SignIn = ({onChange, submit, onClose}) => {
+
     return (
         <div className={'login'} onClick={onClose}>
             <style jsx>{`

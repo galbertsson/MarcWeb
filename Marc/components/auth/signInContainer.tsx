@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import SignIn from './signin';
-import { login } from '../../services/auth/Auth';
+// import { login } from '../../services/auth/Auth';
 import { strategies } from '../../services/auth/strategy/Strategy';
+import Auth from '../../services/auth/Auth';
 
 interface SignInContainerProps {
 
@@ -36,8 +37,7 @@ class signInContainer extends React.Component<SignInContainerProps, SignInContai
 
     submit(e: React.FormEvent<HTMLInputElement>) {
         const { email, password } = this.state;
-        // sendRequest(PATHS.LOGIN, [], {username: email, password});
-        login(strategies.USERNAMEPASSWORD, email, password);
+        Auth.getInstance().login(strategies.USERNAMEPASSWORD, email, password);
 
         e.preventDefault()
     }
@@ -57,16 +57,12 @@ class signInContainer extends React.Component<SignInContainerProps, SignInContai
     render() {
         return <>
             <span onClick={(e) => this.openDialog()}>Sign in</span>
-            {
-                this.state.open &&
                 <SignIn
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.onChange(e)}
                     submit={(e: React.FormEvent<HTMLInputElement>) => this.submit(e)}
                     onClose={(e: React.MouseEvent) => this.closeDialog(e)}
                 />
-            }
         </>
-
     }
 }
 

@@ -2,10 +2,11 @@ import React from 'react';
 import { AppProps } from 'next/app';
 import Head from 'next/head'
 import Header from '../components/shared/header';
+import { AuthProvider } from '../services/auth/AuthProvider';
 
-function MyApp({Component, pageProps}: AppProps) {
+function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <div>
+    <AuthProvider>
       <style jsx>{`
                 #main-area : {
                   background-color : #E1E2E1  
@@ -15,9 +16,11 @@ function MyApp({Component, pageProps}: AppProps) {
       </Head>
       <div id="main-area">
         <Header />
-        <Component {...pageProps} user={''} />
+
+        <Component {...pageProps} />
+
       </div>
-    </div>
+    </AuthProvider>
   );
 }
 
