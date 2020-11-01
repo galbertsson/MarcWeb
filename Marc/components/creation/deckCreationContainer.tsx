@@ -10,7 +10,6 @@ import TitleInput from "./titleInput";
 interface DeckCreationContainerProps {
     title?: string;
     notes?: (BasicNote | ClozeNote)[];
-    callback: (title: string, notes: (ClozeNote | BasicNote)[]) => void;
 }
 
 interface DeckCreationContainerState {
@@ -83,7 +82,8 @@ class DeckCreationContainer extends React.Component<DeckCreationContainerProps, 
     }
 
     createDeck() {
-        this.props.callback(this.state.title, this.state.notes)
+        // TODO: Just call decks.createDeck?
+        // this.props.callback(this.state.title, this.state.notes)
     }
 
     render() {
