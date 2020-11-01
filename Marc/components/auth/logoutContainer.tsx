@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import Logout from './logout';
-import { logout } from '../../services/auth/Auth';
+import Auth from '../../services/auth/Auth';
 
 export default class LogoutContainer extends Component {
 
     callback() {
-        logout();
+        Auth.getInstance().logout();
     }
 
     render() {
