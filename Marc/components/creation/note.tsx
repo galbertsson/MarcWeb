@@ -10,7 +10,7 @@ interface NoteProps {
 
 const Note = (props: NoteProps): JSX.Element => {
     //TODO: Fix in a better way
-    if (props.note.type === "ClozeNote") {
+    if (props.note.type === "clozeNote") {
         return <div>
             Cloze Note:
             <textarea
@@ -22,7 +22,7 @@ const Note = (props: NoteProps): JSX.Element => {
             />
             <button onClick={(e) => props.deleteCallBack(props.index)}>Delete</button>
         </div>
-    } else if (props.note.type === "BasicNote") {
+    } else if (props.note.type === "basicNote") {
         return <div>
             Basic Note:
             <textarea value={(props.note as BasicNote).front} onChange={(e) => {

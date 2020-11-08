@@ -1,24 +1,23 @@
 import { getRequestData, PATHS } from '../routes'
 import superAgent, { SuperAgentRequest } from 'superagent';
-import { relay } from '../auth/Auth';
+import Auth from '../auth/Auth';
+import Deck from '../../util/Deck';
 
-const getDecks = (cb: (decks: any) => void) => {
+const getDecks = (cb: (decks?: Deck[]) => void) => {
     const { url } = getRequestData(PATHS.GET_DECKS, []);
     console.log('URL from request data', url);
 
     let request = superAgent
         .get(url)
-        .send();
+        .send(); // to we rly send?
 
-    //TODO: Need to get some data here!
-    relay(request, (res) => {
+    Auth.getInstance().relay(request, (res) => {
         console.log('We got the relay!');
         cb(res.body);
     });
 }
 
-//@ts-ignore
-const createDeck = (title: string, notes: (ClozeNote | BasicNote)[]) => {
+const createDeck = (title: string, notes: Deck['notes']) => {
     const { url } = getRequestData(PATHS.CREATE_DECK, []);
 
     console.log('sending', {title, notes})
@@ -27,14 +26,22 @@ const createDeck = (title: string, notes: (ClozeNote | BasicNote)[]) => {
         .post(url)
         .send({title, notes});
 
-    relay(request, (res) => {
-        console.log(res)
+    Auth.getInstance().relay(request, (res) => {
+        console.log(res);
     });
 }
 
 
-const getDeck = (id: string) => {
+const getDeck = (id: string, cb: (deck?: Deck) => void) => {
+    const { url } = getRequestData(PATHS.GET_DECK, [id]);
 
+    const request = superAgent
+        .get(url)
+        .send();
+
+    Auth.getInstance().relay(request, (res) => {
+        cb(res.body);
+    });
 }
 
 

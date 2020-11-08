@@ -12,13 +12,13 @@ interface EditProps {
     id: string;
 }
 
-class Edit extends React.Component<NextPage<EditProps>, EditState> {
+class Edit extends React.Component<EditProps, EditState> {
 
-    constructor(props: NextPage<EditProps>) {
-        super(props)
+    constructor(props: EditProps) {
+        super(props);
 
         this.state = {
-            data: { id: '', title: "", notes: [] }
+            data: { _id: '', title: "", notes: [] }
         }
     }
 
@@ -32,18 +32,24 @@ class Edit extends React.Component<NextPage<EditProps>, EditState> {
             </style>
 
             <div>
-                <DeckCreationContainer title={this.state.data.title} notes={this.state.data.notes} />
+                <DeckCreationContainer title={this.state.data.title} notes={this.state.data.notes} callback={() => console.log('idk lul')} />
             </div>
         </>
     }
 
     componentDidMount() {
-        getDeck(this.props)
+        getDeck(this.props.id, (deck) => {
+            if (deck) {
+                this.setState({data: deck})
+            }
+        });
     }
 
-    static async getInitialProps({ params }: { params: { id: string } }) {
+    static async getInitialProps(data: { query: { id: string } }) {
+        console.log(data.query.id);
+
         return {
-            id: params.id
+            id: data.query.id
         }
     }
 }

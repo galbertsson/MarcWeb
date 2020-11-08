@@ -81,6 +81,8 @@ class UsernameAndPassword implements Strategy {
                 .then(res => {
                     this.deleteItem(localStorageItem.USERNAME);
                     this.deleteItem(localStorageItem.USER_ID);
+                    // Assume dev server restarted
+                    this.deleteItem(localStorageItem.CSRF_TOKEN);
                 })
                 .catch(err => console.log(err))
         })

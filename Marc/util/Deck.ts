@@ -2,12 +2,12 @@ import ClozeNote from "./ClozeNote";
 import BasicNote from "./BasicNote";
 
 class Deck {
-    id: string
+    _id: string
     title: string
     notes: (ClozeNote|BasicNote)[]
 
     constructor(id: string, title: string, notes: (ClozeNote | BasicNote)[]) {
-        this.id = id;
+        this._id = id;
         this.title = title;
         this.notes = notes;
     }

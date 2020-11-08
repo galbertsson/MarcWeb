@@ -41,7 +41,7 @@ class Decks extends React.Component<DeckProps, DeckState> {
 
   componentDidMount() {
     console.log('Going to get decks!');
-      getDecks((decks) => this.setState({decks}))
+      getDecks((decks) => this.setState({decks: decks ?? []}))
       /* this.fetchDecks()
         .then((jsonRes) => this.setState({ decks: jsonRes })) */
   }

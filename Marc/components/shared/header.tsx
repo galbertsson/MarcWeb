@@ -7,7 +7,6 @@ import { AuthContext } from '../../services/auth/AuthProvider';
 
 const Header = ({ }) => {
     const user = useContext(AuthContext);
-    console.log('user', user);
 
     return (
         <>
@@ -51,7 +50,9 @@ const Header = ({ }) => {
                     </Link>
                 </div>
                 <div className="end">
-                    <SigninContainer />
+                    { !user &&
+                        <SigninContainer />
+                    }
                     <Signup />
                 </div>
             </nav>

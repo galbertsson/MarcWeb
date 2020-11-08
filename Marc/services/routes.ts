@@ -30,12 +30,11 @@ export const getRequestData = (path: PATHS, params: string[]): { url: string, me
             return { url, method: TYPES.POST };
         case PATHS.REGISTER:
             return { url, method: TYPES.POST };
-        /* case PATHS.GET_DECK:
-            return { url: `${url}/${params[0]}`, method: TYPES.GET }; */
         case PATHS.CREATE_DECK:
             return { url, method: TYPES.POST };
+        case PATHS.GET_DECK:
         case PATHS.GET_DECKS:
-            return { url, method: TYPES.GET };
+            return { url: (params[0] ? `${url}/${params[0]}` : url), method: TYPES.GET };
         case PATHS.EDIT_DECK:
             return { url, method: TYPES.POST };
         case PATHS.DELETE_DECK:
