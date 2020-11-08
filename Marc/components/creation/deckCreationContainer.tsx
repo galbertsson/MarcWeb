@@ -6,10 +6,12 @@ import BasicNote from "../../util/BasicNote";
 import EditableNotes from "./editableNotes";
 import CreateNewNote from "./createNewNote";
 import TitleInput from "./titleInput";
+import Deck from '../../util/Deck';
 
 interface DeckCreationContainerProps {
     title?: string;
-    notes?: (BasicNote | ClozeNote)[];
+    notes?: Deck['notes'];
+    callback: (title: string, notes: Deck['notes']) => void;
 }
 
 interface DeckCreationContainerState {
@@ -24,9 +26,9 @@ class DeckCreationContainer extends React.Component<DeckCreationContainerProps, 
         super(props);
 
         this.state = {
-            notes: (props.notes ? props.notes : []), //Get the supplied notes if there are any
-            text: "",
-            title: (props.title ? props.title : "") //Get the supplied title if there is any
+            notes: props.notes ?? [],
+            text: '',
+            title: props.title ?? ''
         }
     }
 
@@ -83,7 +85,7 @@ class DeckCreationContainer extends React.Component<DeckCreationContainerProps, 
 
     createDeck() {
         // TODO: Just call decks.createDeck?
-        // this.props.callback(this.state.title, this.state.notes)
+        this.props.callback(this.state.title, this.state.notes);
     }
 
     render() {

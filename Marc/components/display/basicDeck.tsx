@@ -21,7 +21,7 @@ const BasicDeck = ({ deck }: BasicDeckPros) => (
                 align-items: center;
             }
         `}</style>
-        <Link href={`/edit/${deck.id}`}>
+        <Link href={`/edit/[id]`} as={`/edit/${deck._id}`}>
             <a>
                 <div className={'deck'}>
                     {deck.title}

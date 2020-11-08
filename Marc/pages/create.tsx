@@ -41,7 +41,7 @@ const create = (props: CreateProps) => {
       </style>
 
       <div>
-        <DeckCreationContainer callback={callback} />
+        <DeckCreationContainer callback={(title, notes) => callback(title, notes)} />
       </div>
     </>
   )

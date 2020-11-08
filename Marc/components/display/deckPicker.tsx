@@ -19,7 +19,7 @@ const DeckPicker = ({ decks }: DeckPickerProps) => {
         `}</style>
             <DeckTop />
             <div className="picker">
-                {decks.map(deck => <BasicDeck key={deck.id} deck={deck} />)}
+                {decks.map(deck => <BasicDeck key={deck._id} deck={deck} />)}
             </div>
         </div>
     )
