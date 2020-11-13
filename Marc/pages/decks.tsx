@@ -24,46 +24,12 @@ class Decks extends React.Component<DeckProps, DeckState> {
     }
   }
 
-  fetchDecks() {
-    /* return new Promise((resolve, reject) =>{
-      this.props.user.getIdToken()
-      .then((token) => fetch("http://localhost:8080/decks/basic", {
-        method : 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        }
-      }))
-      .then((res) => res.json())
-      .then((data) => resolve(data))
-    }) */
-  }
-
   componentDidMount() {
     console.log('Going to get decks!');
-      getDecks((decks) => this.setState({decks: decks ?? []}))
-      /* this.fetchDecks()
-        .then((jsonRes) => this.setState({ decks: jsonRes })) */
+    getDecks((decks) => this.setState({decks: decks ?? []}))
   }
 
-  /* componentDidUpdate(prevProps) {
-    if (this.props.user && !prevProps.user) {
-      this.fetchDecks()
-        .then((jsonRes) => this.setState({ decks: jsonRes }))
-    }
-  } */
-
   render() {
-/*     let testDecks =
-      [
-        { title: "T1", notes: [], id: '1' },
-        { title: "T2", notes: [], id: '2' },
-        { title: "T3", notes: [], id: '3' },
-        { title: "T4", notes: [], id: '4' },
-        { title: "T5", notes: [], id: '5' },
-        { title: "T6", notes: [], id: '6' },
-      ] */
-
     return <>
       <style jsx>{`
         .root{

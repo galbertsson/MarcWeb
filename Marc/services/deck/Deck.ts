@@ -9,7 +9,7 @@ const getDecks = (cb: (decks?: Deck[]) => void) => {
 
     let request = superAgent
         .get(url)
-        .send(); // to we rly send?
+        .send();
 
     Auth.getInstance().relay(request, (res) => {
         console.log('We got the relay!');
@@ -45,14 +45,29 @@ const getDeck = (id: string, cb: (deck?: Deck) => void) => {
 }
 
 
-//@ts-ignore
 const editDeck = (deck: Deck) => {
+    const { url } = getRequestData(PATHS.EDIT_DECK, []);
 
+    const request = superAgent
+        .post(url)
+        .send(deck);
+
+    Auth.getInstance().relay(request, (res) => {
+        console.log(res);
+    });
 }
 
 
 const deleteDeck = (id: string) => {
+    const { url } = getRequestData(PATHS.DELETE_DECK, [id]);
 
+    const request = superAgent
+        .delete(url)
+        .send();
+
+    Auth.getInstance().relay(request, (res) => {
+        console.log(res);
+    })
 }
 
 export {

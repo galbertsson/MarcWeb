@@ -1,7 +1,8 @@
 import { NextPage } from 'next';
 import React from 'react';
 import DeckCreationContainer from '../../components/creation/deckCreationContainer';
-import { getDeck } from '../../services/deck/Deck';
+import Auth from '../../services/auth/Auth';
+import { editDeck, getDeck } from '../../services/deck/Deck';
 import Deck from '../../util/Deck';
 
 interface EditState {
@@ -32,7 +33,7 @@ class Edit extends React.Component<EditProps, EditState> {
             </style>
 
             <div>
-                <DeckCreationContainer title={this.state.data.title} notes={this.state.data.notes} callback={() => console.log('idk lul')} />
+                <DeckCreationContainer title={this.state.data.title} notes={this.state.data.notes} callback={(title, notes) => editDeck({_id: this.state.data._id, title, notes})} />
             </div>
         </>
     }
