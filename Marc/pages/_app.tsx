@@ -1,7 +1,7 @@
 import React from 'react';
 import { AppProps } from 'next/app';
 import Head from 'next/head'
-import Header from '../components/shared/header';
+import Header from '../components/shared/Header';
 import { AuthProvider } from '../services/auth/AuthProvider';
 
 function MyApp({ Component, pageProps }: AppProps) {

@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 import React from 'react';
-import DeckCreationContainer from '../../components/creation/deckCreationContainer';
+import DeckCreationContainer from '../../components/creation/DeckCreationContainer';
 import Auth from '../../services/auth/Auth';
 import { editDeck, getDeck } from '../../services/deck/Deck';
 import Deck from '../../util/Deck';

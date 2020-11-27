@@ -1,10 +1,9 @@
-import React, { Component } from 'react'
-import SignIn from './signin';
-// import { login } from '../../services/auth/Auth';
+import React from 'react';
 import { strategies } from '../../services/auth/strategy/Strategy';
 import Auth from '../../services/auth/Auth';
+import { Button, createStyles, Dialog, DialogContent, DialogTitle, TextField, WithStyles, withStyles } from '@material-ui/core';
 
-interface SignInContainerProps {
+interface SignInContainerProps extends WithStyles<typeof styles> {
 
 }
 
@@ -13,6 +12,19 @@ interface SignInContainerState {
     email: string;
     password: string;
 }
+
+const styles = createStyles({
+    container: {
+        maxWidth: 500,
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+    },
+    button: {
+        marginTop: 5,
+        justifySelf: 'bottom'
+    }
+});
 
 class signInContainer extends React.Component<SignInContainerProps, SignInContainerState> {
 
@@ -26,8 +38,7 @@ class signInContainer extends React.Component<SignInContainerProps, SignInContai
         };
     }
 
-    /* TODO: Fix this later */
-    onChange(e: React.ChangeEvent<HTMLInputElement>) {
+    onChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
         if (e.target.name === 'email') {
             this.setState({ [e.target.name]: e.target.value })
         } else if (e.target.name === 'password') {
@@ -35,35 +46,54 @@ class signInContainer extends React.Component<SignInContainerProps, SignInContai
         }
     }
 
-    submit(e: React.FormEvent<HTMLInputElement>) {
+    submit() {
         const { email, password } = this.state;
         Auth.getInstance().login(strategies.USERNAMEPASSWORD, email, password);
-
-        e.preventDefault()
     }
 
     openDialog() {
         this.setState({ open: true })
     }
 
-    closeDialog(e: React.MouseEvent) {
-        e.preventDefault()
-        if (e.target === e.currentTarget) {
-            this.setState({ open: false })
-        }
-
-    }
-
     render() {
+        const { classes } = this.props;
+        const { open } = this.state;
+
         return <>
-            <span onClick={(e) => this.openDialog()}>Sign in</span>
-                <SignIn
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.onChange(e)}
-                    submit={(e: React.FormEvent<HTMLInputElement>) => this.submit(e)}
-                    onClose={(e: React.MouseEvent) => this.closeDialog(e)}
-                />
+            <span onClick={() => this.openDialog()}>Sign in</span>
+            <Dialog
+                onClose={() => this.setState({ open: false })}
+                open={open}
+            >
+                <DialogTitle>Sign in</DialogTitle>
+                <DialogContent>
+                    <form className={classes.container}>
+                        <TextField
+                            type='email'
+                            name='email'
+                            label='Email'
+                            onChange={(e) => this.onChange(e)}
+                        />
+                        <TextField
+                            type='password'
+                            name='password'
+                            label='Password'
+                            onChange={(e) => this.onChange(e)}
+                        />
+                        <Button
+                            onClick={() => this.submit()}
+                            component='div'
+                            color='primary'
+                            variant='contained'
+                            className={classes.button}
+                        >
+                            Login
+                    </Button>
+                    </form>
+                </DialogContent>
+            </Dialog>
         </>
     }
 }
 
-export default signInContainer
+export default withStyles(styles)(signInContainer)

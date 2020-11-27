@@ -1,63 +1,66 @@
 import React, { useContext } from 'react'
 import Link from 'next/link'
-import SigninContainer from '../auth/signInContainer'
+import SigninContainer from '../auth/SignInContainer'
 import Colors from '../../util/colors'
-import Signup from '../auth/signup'
+import Signup from '../auth/Signup'
 import { AuthContext } from '../../services/auth/AuthProvider';
+import LogoutContainer from '../auth/LogoutContainer'
+import { createStyles, withStyles, WithStyles } from '@material-ui/core'
 
-const Header = ({ }) => {
+const styles = createStyles({
+    navText: {
+        color: Colors.textColorPrimary,
+        marginLeft: 10,
+        textDecoration: 'none'
+    },
+    navBar: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        backgroundColor: Colors.primaryColor,
+        minHeight: 55
+    }
+});
+
+interface HeaderProps {
+
+}
+
+const Header = ({ classes }: HeaderProps & WithStyles<typeof styles>) => {
     const user = useContext(AuthContext);
 
     return (
-        <>
-            <style jsx>{`
-                .nav-text {
-                    color: ${Colors.textColorPrimary};
-                    margin-left: 10px;
-                    text-decoration: none;
-                }
-                #navbar{
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between; 
-                    background-color: ${Colors.primaryColor};
-                    min-height: 55px;
-                    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-                }
-                .nav-end{
-                    
-                }
-                .end{
-
-                }
-                `}</style>
-            <nav id="navbar">
-                <div className="start">
-                    <Link href="/">
-                        <a className="nav-link nav-text">
-                            Home
+        <nav className={classes.navBar}>
+            <div>
+                <Link href="/">
+                    <a className={classes.navText}>
+                        Home
                         </a>
-                    </Link>
-                    <Link href="/decks">
-                        <a className="nav-link nav-text">
-                            Decks
+                </Link>
+                <Link href="/decks">
+                    <a className={classes.navText}>
+                        Decks
                         </a>
-                    </Link>
-                    <Link href="/create">
-                        <a className="nav-link nav-text">
-                            Create Deck
+                </Link>
+                <Link href="/create">
+                    <a className={classes.navText}>
+                        Create Deck
                         </a>
-                    </Link>
-                </div>
-                <div className="end">
-                    { !user &&
-                        <SigninContainer />
-                    }
+                </Link>
+            </div>
+            <div>
+                {!user && <>
+                    <SigninContainer />
                     <Signup />
-                </div>
-            </nav>
-        </>
+                </>
+                }
+                {user &&
+                    <LogoutContainer />
+                }
+
+            </div>
+        </nav>
     )
 }
 
-export default Header
+export default withStyles(styles)(Header)

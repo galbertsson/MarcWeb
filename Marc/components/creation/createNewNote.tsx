@@ -1,11 +1,13 @@
+import { Button } from '@material-ui/core'
+
 interface CreateNewNoteProps {
     newNoteCallback: (value: string) => void;
 }
 
 const CreateNewNote = (props: CreateNewNoteProps) => (
     <>
-        <button onClick={() => props.newNoteCallback("basic")}>Basic</button>
-        <button onClick={() => props.newNoteCallback("cloze")}>Cloze</button>
+        <Button onClick={() => props.newNoteCallback("basic")}>Basic</Button>
+        <Button onClick={() => props.newNoteCallback("cloze")}>Cloze</Button>
     </>
 )
 

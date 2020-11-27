@@ -1,4 +1,4 @@
-import Note from "./note";
+import Note from "./Note";
 import ClozeNote from "../../util/ClozeNote";
 import BasicNote from "../../util/BasicNote";
 

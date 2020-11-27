@@ -1,5 +1,6 @@
 import ClozeNote from "../../util/ClozeNote"
 import BasicNote from "../../util/BasicNote"
+import { Button } from '@material-ui/core'
 
 interface NoteProps {
     index: number;
@@ -14,13 +15,13 @@ const Note = (props: NoteProps): JSX.Element => {
         return <div>
             Cloze Note:
             <textarea
-                value={(props.note as ClozeNote).text} 
+                value={(props.note as ClozeNote).text}
                 onChange={(e) => {
                     console.log('Change!')
                     props.changeCallBack(props.index, e.target.value)
-                }} 
+                }}
             />
-            <button onClick={(e) => props.deleteCallBack(props.index)}>Delete</button>
+            <Button onClick={(e) => props.deleteCallBack(props.index)}>Delete</Button>
         </div>
     } else if (props.note.type === "basicNote") {
         return <div>
@@ -29,11 +30,11 @@ const Note = (props: NoteProps): JSX.Element => {
                 console.log('chbage!')
                 console.log(e.target.value);
                 props.changeCallBack(props.index, e.target.value, true)
-                
+
             }
-                }></textarea>
+            }></textarea>
             <textarea value={(props.note as BasicNote).back} onChange={(e) => props.changeCallBack(props.index, e.target.value, false)}></textarea>
-            <button onClick={(e) => props.deleteCallBack(props.index)}>Delete</button>
+            <Button onClick={(e) => props.deleteCallBack(props.index)}>Delete</Button>
         </div>
     }
     return <div>{`Apologies, but the note number ${props.index} seems to be invalid!`}</div>

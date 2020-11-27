@@ -2,35 +2,34 @@ import React from 'react'
 import Link from 'next/link'
 import Colors from '../../util/colors'
 import Deck from '../../util/Deck'
+import { createStyles, Paper, withStyles, WithStyles } from '@material-ui/core';
 
 interface BasicDeckPros {
     deck: Deck
 }
 
-const BasicDeck = ({ deck }: BasicDeckPros) => (
-    <>
-        <style jsx>{`
-            .deck {
-                background-color: ${Colors.textBackground};
-                width: 430px;
-                height: 250px;
-                margin: 10px;
-                box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-        `}</style>
-        <Link href={`/edit/[id]`} as={`/edit/${deck._id}`}>
-            <a>
-                <div className={'deck'}>
-                    {deck.title}
-                    <br />
-                    {deck.notes?.length ?? 0} {deck.notes?.length !== 1 ? 'notes' : 'note'}
-                </div>
-            </a>
-        </Link>
-    </>
-)
+const styles = createStyles({
+    deck: {
+        backgroundColor: Colors.textBackground,
+        width: 430,
+        height: 250,
+        margin: 10,
+        display: 'flex',
+        justifyContent: 'center';
+        alignItems: 'center';
+    }
+});
 
-export default BasicDeck
+const BasicDeck = ({ deck }: BasicDeckPros & WithStyles<typeof styles>) => (
+    <Link href={`/edit/[id]`} as={`/edit/${deck._id}`}>
+        <a>
+            <Paper className={'deck'}>
+                {deck.title}
+                <br />
+                {deck.notes?.length ?? 0} {deck.notes?.length !== 1 ? 'notes' : 'note'}
+            </Paper>
+        </a>
+    </Link>
+);
+
+export default withStyles(styles)(BasicDeck)

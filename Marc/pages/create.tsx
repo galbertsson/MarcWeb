@@ -1,5 +1,5 @@
 import React from 'react';
-import DeckCreationContainer from '../components/creation/deckCreationContainer';
+import DeckCreationContainer from '../components/creation/DeckCreationContainer';
 import ClozeNote from '../util/ClozeNote';
 import BasicNote from '../util/BasicNote';
 import { createDeck } from '../services/deck/Deck';

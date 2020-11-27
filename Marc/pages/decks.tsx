@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter, Router } from 'next/router'
-import DeckPicker from '../components/display/deckPicker';
+import DeckPicker from '../components/display/DeckPicker';
 import Colors from '../util/colors'
 import User from '../util/User';
 import Deck from '../util/Deck';

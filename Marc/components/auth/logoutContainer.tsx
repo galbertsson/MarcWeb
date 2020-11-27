@@ -1,14 +1,16 @@
+import { Button } from '@material-ui/core';
 import React, { Component } from 'react'
-import Logout from './logout';
 import Auth from '../../services/auth/Auth';
 
 export default class LogoutContainer extends Component {
 
-    callback() {
+    logout() {
         Auth.getInstance().logout();
     }
 
     render() {
-        return <Logout callback={() => this.callback()} />
+        return <Button onClick={() => this.logout()}>
+            Logout
+        </Button>
     }
 }

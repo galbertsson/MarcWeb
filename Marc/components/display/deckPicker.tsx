@@ -1,7 +1,16 @@
 import React from 'react'
-import BasicDeck from "./basicDeck";
-import DeckTop from './deckTop';
+import BasicDeck from "./BasicDeck";
+import DeckTop from './DeckTop';
 import Deck from '../../util/Deck';
+import { createStyles } from '@material-ui/core';
+
+const styles = createStyles({
+    picker: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'space-evenly'
+    }
+});
 
 interface DeckPickerProps {
     decks: Deck[]
@@ -10,13 +19,6 @@ interface DeckPickerProps {
 const DeckPicker = ({ decks }: DeckPickerProps) => {
     return (
         <div>
-            <style jsx>{`
-             .picker{
-                 display: flex;
-                 flex-wrap: wrap;
-                 justify-content: space-evenly
-             }
-        `}</style>
             <DeckTop />
             <div className="picker">
                 {decks.map(deck => <BasicDeck key={deck._id} deck={deck} />)}

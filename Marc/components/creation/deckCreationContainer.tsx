@@ -1,12 +1,13 @@
 import React from 'react';
 import { textParser } from "../../util/textParser";
-import TextInput from "./textInput";
+import TextInput from "./TextInput";
 import ClozeNote from "../../util/ClozeNote";
 import BasicNote from "../../util/BasicNote";
-import EditableNotes from "./editableNotes";
-import CreateNewNote from "./createNewNote";
-import TitleInput from "./titleInput";
+import EditableNotes from "./EditableNotes";
+import CreateNewNote from "./CreateNewNote";
+import TitleInput from "./TitleInput";
 import Deck from '../../util/Deck';
+import { Button } from '@material-ui/core';
 
 interface DeckCreationContainerProps {
     title?: string;
@@ -61,7 +62,7 @@ class DeckCreationContainer extends React.Component<DeckCreationContainerProps, 
         }
 
         newNotes[index] = newNote;
-        this.setState({notes: newNotes});
+        this.setState({ notes: newNotes });
     }
 
     newNote(type: string) {
@@ -93,11 +94,11 @@ class DeckCreationContainer extends React.Component<DeckCreationContainerProps, 
             <TextInput textCallBack={() => this.parseHandler} buttonCallBack={() => this.runParser()} />
             <TitleInput title={this.state.title} titleCallback={(title) => this.setState({ title: title })} />
             <CreateNewNote newNoteCallback={(type: string) => this.newNote(type)} />
-            <EditableNotes 
-            notes={this.state.notes} 
-            deleteCallBack={(index: number) => this.removeNote(index)} 
-            changeCallBack={(index, text, isFront) => this.noteChange(index, text, isFront)} />
-            <button onClick={() => this.createDeck()}>Create</button>
+            <EditableNotes
+                notes={this.state.notes}
+                deleteCallBack={(index: number) => this.removeNote(index)}
+                changeCallBack={(index, text, isFront) => this.noteChange(index, text, isFront)} />
+            <Button variant='contained' color='primary' onClick={() => this.createDeck()}>Create</Button>
         </>
     }
 }
