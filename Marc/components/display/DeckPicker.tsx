@@ -1,10 +1,17 @@
 import React from 'react'
 import BasicDeck from "./BasicDeck";
-import DeckTop from './DeckTop';
 import Deck from '../../util/Deck';
-import { createStyles } from '@material-ui/core';
+import { createStyles, WithStyles, withStyles } from '@material-ui/core';
+import colors from '../../util/colors';
 
 const styles = createStyles({
+    top: {
+        height: 55,
+        backgroundColor: `${colors.backgroundColor}`,
+        zIndex: 2,
+        boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+        margin: 0
+    },
     picker: {
         display: 'flex',
         flexWrap: 'wrap',
@@ -12,19 +19,21 @@ const styles = createStyles({
     }
 });
 
-interface DeckPickerProps {
+interface DeckPickerProps extends WithStyles<typeof styles> {
     decks: Deck[]
 }
 
-const DeckPicker = ({ decks }: DeckPickerProps) => {
+const DeckPicker = ({ decks, classes }: DeckPickerProps) => {
     return (
         <div>
-            <DeckTop />
-            <div className="picker">
+            <div className={classes.top}>
+                Deck Overview
+        </div>
+            <div className={classes.picker}>
                 {decks.map(deck => <BasicDeck key={deck._id} deck={deck} />)}
             </div>
         </div>
     )
 }
 
-export default DeckPicker
+export default withStyles(styles)(DeckPicker);

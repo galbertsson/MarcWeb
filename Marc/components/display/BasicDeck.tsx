@@ -20,10 +20,10 @@ const styles = createStyles({
     }
 });
 
-const BasicDeck = ({ deck }: BasicDeckPros & WithStyles<typeof styles>) => (
+const BasicDeck = ({ deck, classes }: BasicDeckPros & WithStyles<typeof styles>) => (
     <Link href={`/edit/[id]`} as={`/edit/${deck._id}`}>
         <a>
-            <Paper className={'deck'}>
+            <Paper className={classes.deck}>
                 {deck.title}
                 <br />
                 {deck.notes?.length ?? 0} {deck.notes?.length !== 1 ? 'notes' : 'note'}
