@@ -15,8 +15,8 @@ const styles = createStyles({
         height: 250,
         margin: 10,
         display: 'flex',
-        justifyContent: 'center';
-        alignItems: 'center';
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 });
 

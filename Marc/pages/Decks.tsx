@@ -5,8 +5,16 @@ import Colors from '../util/colors'
 import User from '../util/User';
 import Deck from '../util/Deck';
 import { getDecks } from '../services/deck/Deck';
+import { createStyles, WithStyles, withStyles } from '@material-ui/core';
 
-interface DeckProps {
+const styles = createStyles({
+  root: {
+    backgroundColor: Colors.backgroundColor,
+    minHeight: '100vh'
+  }
+});
+
+interface DeckProps extends WithStyles<typeof styles>{
   router: Router;
   user: User;
 }
@@ -26,24 +34,16 @@ class Decks extends React.Component<DeckProps, DeckState> {
 
   componentDidMount() {
     console.log('Going to get decks!');
-    getDecks((decks) => this.setState({decks: decks ?? []}))
+    getDecks((decks) => this.setState({ decks: decks ?? [] }))
   }
 
   render() {
-    return <>
-      <style jsx>{`
-        .root{
-            background-color: ${Colors.backgroundColor};
-            min-height: 100vh;
-        }
-        `}
-      </style>
+    const { classes } = this.props;
 
-      <div className="root">
+    return <div className={classes.root}>
         <DeckPicker decks={this.state.decks} />
       </div>
-    </>
   }
 }
 
-export default withRouter(Decks);
+export default withStyles(styles)(withRouter(Decks));

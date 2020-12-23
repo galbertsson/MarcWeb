@@ -14,36 +14,14 @@ interface CreateProps {
   */
 const callback = (title: string, notes: (ClozeNote | BasicNote)[]) => {
   createDeck(title, notes);
-
-  /* this.props.user.getIdToken().then((token) =>
-    fetch("http://localhost:8080/decks/create", {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify({
-        title: title,
-        notes: notes
-      })
-    })) */
 }
 
 
-const create = (props: CreateProps) => {
+const create = ({}: CreateProps) => {
   return (
-    <>
-      <style jsx>{`
-       .style{
-         color: green;
-       }
-       `}
-      </style>
-
-      <div>
-        <DeckCreationContainer callback={(title, notes) => callback(title, notes)} />
-      </div>
-    </>
+    <div>
+      <DeckCreationContainer callback={(title, notes) => callback(title, notes)} />
+    </div>
   )
 }
 
