@@ -5,7 +5,7 @@ import BasicNote from "../../util/BasicNote";
 interface EditableNotesProps {
     notes: (ClozeNote | BasicNote)[],
     deleteCallBack: (index: number) => void;
-    changeCallBack: (index: number, value: string, isFront?: boolean) => void;
+    changeCallBack: (index: number, note: ClozeNote | BasicNote) => void;
 }
 
 const EditableNotes = (props: EditableNotesProps): JSX.Element => {
@@ -17,7 +17,7 @@ const EditableNotes = (props: EditableNotesProps): JSX.Element => {
                     note={note}
                     index={index}
                     deleteCallBack={props.deleteCallBack}
-                    changeCallBack={(index, value, isFront) => props.changeCallBack(index, value, isFront)} />
+                    changeCallBack={(note) => props.changeCallBack(index, note)} />
                 )}
         </>
     } else {

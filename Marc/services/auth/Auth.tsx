@@ -27,6 +27,7 @@ export default class Auth {
 
     setStrategy(strategy?: Strategy) {
         this.strategy = strategy;
+        console.log('settings stragety', strategy);
     }
 
     setUser(user?: User) {

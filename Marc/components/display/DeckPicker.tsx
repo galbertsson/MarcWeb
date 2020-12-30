@@ -2,12 +2,11 @@ import React from 'react'
 import BasicDeck from "./BasicDeck";
 import Deck from '../../util/Deck';
 import { createStyles, WithStyles, withStyles } from '@material-ui/core';
-import colors from '../../util/colors';
 
 const styles = createStyles({
     top: {
         height: 55,
-        backgroundColor: `${colors.backgroundColor}`,
+        backgroundColor: 'white',
         zIndex: 2,
         boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
         margin: 0
@@ -28,7 +27,7 @@ const DeckPicker = ({ decks, classes }: DeckPickerProps) => {
         <div>
             <div className={classes.top}>
                 Deck Overview
-        </div>
+            </div>
             <div className={classes.picker}>
                 {decks.map(deck => <BasicDeck key={deck._id} deck={deck} />)}
             </div>

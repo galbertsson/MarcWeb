@@ -8,7 +8,8 @@ import colors from '../util/colors';
 
 const styles = createStyles({
   mainArea: {
-    backgroundColor: colors.backgroundColor
+    backgroundColor: colors.backgroundColor,
+    minHeight: '100vh'
   }
 });
 

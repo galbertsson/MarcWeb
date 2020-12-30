@@ -5,11 +5,13 @@ import Deck from '../../util/Deck';
 
 const getDecks = (cb: (decks?: Deck[]) => void) => {
     const { url } = getRequestData(PATHS.GET_DECKS, []);
-    console.log('URL from request data', url);
+    console.log('Gettings decks from', url);
 
     let request = superAgent
         .get(url)
         .send();
+
+    console.log('will relay')
 
     Auth.getInstance().relay(request, (res) => {
         console.log('We got the relay!');
