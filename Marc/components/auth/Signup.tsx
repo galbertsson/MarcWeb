@@ -1,3 +1,4 @@
+import { Button, TextField } from '@material-ui/core';
 import React from 'react';
 import Auth from '../../services/auth/Auth';
 import { strategies } from '../../services/auth/strategy/Strategy';
@@ -26,11 +27,11 @@ class Signup extends React.Component<{}, { email: string, password: string }> {
 
     render() {
         return <form>
-            {/* @ts-ignore */}
-            <input onChange={(e) => this.change(e)} name="email" type="email" />
-            {/* @ts-ignore */}
-            <input onChange={(e) => this.change(e)} name="password" type="password" />
-            <button onClick={() => this.register()}>Sign up</button>
+            <TextField onChange={(e) => this.change(e)} name="email" type="email" />
+            <TextField onChange={(e) => this.change(e)} name="password" type="password" />
+            <Button onClick={() => this.register()}>
+                Sign up
+            </Button>
         </form>
     }
 }
