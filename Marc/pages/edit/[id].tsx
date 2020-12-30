@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 import React from 'react';
-import DeckCreationContainer from '../../components/creation/deckCreationContainer';
+import DeckCreationContainer from '../../components/creation/DeckCreationContainer';
 import Auth from '../../services/auth/Auth';
 import { editDeck, getDeck } from '../../services/deck/Deck';
 import Deck from '../../util/Deck';
@@ -25,13 +25,6 @@ class Edit extends React.Component<EditProps, EditState> {
 
     render() {
         return <>
-            <style jsx>{`
-        .style{
-            color: green;
-        }
-        `}
-            </style>
-
             <div>
                 <DeckCreationContainer title={this.state.data.title} notes={this.state.data.notes} callback={(title, notes) => editDeck({_id: this.state.data._id, title, notes})} />
             </div>

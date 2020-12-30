@@ -1,12 +1,12 @@
 import React from 'react';
 import { textParser } from "../../util/textParser";
-import TextInput from "./textInput";
+import TextInput from "./TextInput";
 import ClozeNote from "../../util/ClozeNote";
 import BasicNote from "../../util/BasicNote";
-import EditableNotes from "./editableNotes";
-import CreateNewNote from "./createNewNote";
-import TitleInput from "./titleInput";
+import EditableNotes from "./EditableNotes";
+import CreateNewNote from "./CreateNewNote";
 import Deck from '../../util/Deck';
+import { Button, TextField } from '@material-ui/core';
 
 interface DeckCreationContainerProps {
     title?: string;
@@ -49,19 +49,10 @@ class DeckCreationContainer extends React.Component<DeckCreationContainerProps, 
         this.setState({ notes: tmp })
     }
 
-    noteChange(index: number, text: string, isFront?: boolean) {
+    noteChange(index: number, note: BasicNote | ClozeNote) {
         const newNotes = [...this.state.notes];
-        const newNote = newNotes[index];
-
-        if (newNote.type === 'basicNote') {
-            const property = isFront ? 'front' : 'back'
-            newNote[property] = text;
-        } else if (newNote.type === 'clozeNote') {
-            newNote.text = text;
-        }
-
-        newNotes[index] = newNote;
-        this.setState({notes: newNotes});
+        newNotes[index] = note;
+        this.setState({ notes: newNotes });
     }
 
     newNote(type: string) {
@@ -89,15 +80,18 @@ class DeckCreationContainer extends React.Component<DeckCreationContainerProps, 
     }
 
     render() {
+        const { title } = this.state;
+
         return <>
-            <TextInput textCallBack={() => this.parseHandler} buttonCallBack={() => this.runParser()} />
-            <TitleInput title={this.state.title} titleCallback={(title) => this.setState({ title: title })} />
+            <TextInput textCallBack={(text) => this.parseHandler(text)} buttonCallBack={() => this.runParser()} />
+            <TextField value={title} onChange={e => this.setState({ title: e.target.value })} />
+            <EditableNotes
+                notes={this.state.notes}
+                deleteCallBack={(index) => this.removeNote(index)}
+                changeCallBack={(index, note) => this.noteChange(index, note)} />
+
             <CreateNewNote newNoteCallback={(type: string) => this.newNote(type)} />
-            <EditableNotes 
-            notes={this.state.notes} 
-            deleteCallBack={(index: number) => this.removeNote(index)} 
-            changeCallBack={(index, text, isFront) => this.noteChange(index, text, isFront)} />
-            <button onClick={() => this.createDeck()}>Create</button>
+            <Button variant='contained' color='primary' onClick={() => this.createDeck()}>Create</Button>
         </>
     }
 }
