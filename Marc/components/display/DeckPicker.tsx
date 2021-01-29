@@ -9,7 +9,9 @@ const styles = createStyles({
         backgroundColor: 'white',
         zIndex: 2,
         boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-        margin: 0
+        display: 'flex',
+        alignItems: 'center',
+        padding: '0 20px'
     },
     picker: {
         display: 'flex',
