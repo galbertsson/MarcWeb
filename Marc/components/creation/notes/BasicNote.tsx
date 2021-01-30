@@ -1,6 +1,15 @@
-import { TextField } from '@material-ui/core';
+import { Divider, makeStyles, TextField } from '@material-ui/core';
 import React, { FC } from 'react'
 import BasicNoteType from '../../../util/BasicNote'
+
+const useStyles = makeStyles({
+    fieldWrapper: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-evenly',
+        height: '100%'
+    }
+});
 
 interface BasicNoteProps {
     note: BasicNoteType;
@@ -9,11 +18,13 @@ interface BasicNoteProps {
 
 const BasicNote: FC<BasicNoteProps> = (props) => {
     const { note, onChange } = props;
+    const classes = useStyles();
 
     return (
-        <div>
-            <TextField value={note.front} onChange={(e) => onChange({ ...note, front: e.target.value })} />
-            <TextField value={note.back} onChange={(e) => onChange({ ...note, back: e.target.value })} />
+        <div className={classes.fieldWrapper}>
+            <TextField value={note.front} onChange={(e) => onChange({ ...note, front: e.target.value })} label='Front' />
+            <Divider />
+            <TextField value={note.back} onChange={(e) => onChange({ ...note, back: e.target.value })} label='Back' />
         </div>
     )
 }

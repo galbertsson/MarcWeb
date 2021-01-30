@@ -1,9 +1,20 @@
 import ClozeNoteType from "../../util/ClozeNote"
 import BasicNoteType from "../../util/BasicNote"
-import { Paper } from '@material-ui/core'
+import { makeStyles, Paper } from '@material-ui/core'
 import React, { FC } from 'react'
 import BasicNote from './notes/BasicNote'
 import ClozeNote from './notes/ClozeNote'
+
+const useStyles = makeStyles({
+    paper: {
+        flex: 1,
+        height: 100,
+        maxWidth: 300,
+        minWidth: 250,
+        margin: 5,
+        padding: 5
+    }
+});
 
 interface NoteProps {
     index: number;
@@ -23,7 +34,9 @@ const renderNote = (note: BasicNoteType | ClozeNoteType, cb: NoteProps['changeCa
 
 const Note: FC<NoteProps> = (props) => {
     const { note, changeCallBack } = props;
-    return <Paper>
+    const classes = useStyles();
+
+    return <Paper className={classes.paper}>
         {renderNote(note, changeCallBack)}
     </Paper>
 }

@@ -12,7 +12,7 @@ const ClozeNote: FC<ClozeNoteProps> = (props) => {
 
     return (
         <div>
-            <TextField value={note.text} onChange={(e) => onChange({ ...note, text: e.target.value })} />
+            <TextField value={note.text} onChange={(e) => onChange({ ...note, text: e.target.value })} multiline />
         </div>
     )
 }
