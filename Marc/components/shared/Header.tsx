@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import Link from 'next/link';
-import SigninContainer from '../auth/SignInContainer';
+import SignInContainer from '../auth/SignInContainer';
 import Colors from '../../util/colors';
 import { AuthContext } from '../../services/auth/AuthProvider';
 import LogoutContainer from '../auth/LogoutContainer';
@@ -57,7 +57,7 @@ const Header = ({ classes }: HeaderProps & WithStyles<typeof styles>) => {
             <div className={classes.rightActions}>
                 {!user && <>
                     <div className={classes.userButton}>
-                        <SigninContainer />
+                        <SignInContainer />
                     </div>
                     <div className={classes.userButton}>
                         <SignUpContainer />
