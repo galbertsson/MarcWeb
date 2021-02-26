@@ -7,6 +7,25 @@
     "build": "next build",
     "start": "next start"
   },
+  "prettier": {
+    "arrowParens": "always",
+    "bracketSpacing": true,
+    "embeddedLanguageFormatting": "auto",
+    "htmlWhitespaceSensitivity": "css",
+    "insertPragma": false,
+    "jsxBracketSameLine": false,
+    "jsxSingleQuote": false,
+    "printWidth": 120,
+    "proseWrap": "preserve",
+    "quoteProps": "as-needed",
+    "requirePragma": false,
+    "semi": true,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "es5",
+    "useTabs": false,
+    "vueIndentScriptAndStyle": false
+  },
   "dependencies": {
     "@material-ui/core": "^4.11.1",
     "ky-universal": "^0.6.0",
@@ -19,6 +38,7 @@
     "@types/node": "^13.13.33",
     "@types/react": "^16.14.2",
     "@types/superagent": "^4.1.10",
+    "prettier": "^2.2.1",
     "typescript": "^3.9.7"
   }
 }

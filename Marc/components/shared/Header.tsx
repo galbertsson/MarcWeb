@@ -1,11 +1,11 @@
-import React, { useContext } from 'react'
-import Link from 'next/link'
-import SigninContainer from '../auth/SignInContainer'
-import Colors from '../../util/colors'
-import Signup from '../auth/Signup'
+import React, { useContext } from 'react';
+import Link from 'next/link';
+import SignInContainer from '../auth/SignInContainer';
+import Colors from '../../util/colors';
 import { AuthContext } from '../../services/auth/AuthProvider';
-import LogoutContainer from '../auth/LogoutContainer'
-import { createStyles, withStyles, WithStyles } from '@material-ui/core'
+import LogoutContainer from '../auth/LogoutContainer';
+import { createStyles, withStyles, WithStyles } from '@material-ui/core';
+import SignUpContainer from '../auth/SignUpContainer';
 
 const styles = createStyles({
     navText: {
@@ -19,6 +19,12 @@ const styles = createStyles({
         justifyContent: 'space-between',
         backgroundColor: Colors.primaryColor,
         minHeight: 55
+    },
+    userButton: {
+        margin: '0 5px'
+    },
+    rightActions: {
+        display: 'flex'
     }
 });
 
@@ -48,10 +54,14 @@ const Header = ({ classes }: HeaderProps & WithStyles<typeof styles>) => {
                         </a>
                 </Link>
             </div>
-            <div>
+            <div className={classes.rightActions}>
                 {!user && <>
-                    <SigninContainer />
-                    <Signup />
+                    <div className={classes.userButton}>
+                        <SignInContainer />
+                    </div>
+                    <div className={classes.userButton}>
+                        <SignUpContainer />
+                    </div>
                 </>
                 }
                 {user &&

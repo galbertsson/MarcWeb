@@ -3,11 +3,11 @@ import { strategies } from '../../services/auth/strategy/Strategy';
 import Auth from '../../services/auth/Auth';
 import { Button, createStyles, Dialog, DialogContent, DialogTitle, TextField, WithStyles, withStyles } from '@material-ui/core';
 
-interface SignInContainerProps extends WithStyles<typeof styles> {
+interface SignUpContainerProps extends WithStyles<typeof styles> {
 
 }
 
-interface SignInContainerState {
+interface SignUpContainerState {
     open: boolean;
     email: string;
     password: string;
@@ -26,9 +26,9 @@ const styles = createStyles({
     }
 });
 
-class signInContainer extends React.Component<SignInContainerProps, SignInContainerState> {
+class SignUpContainer extends React.Component<SignUpContainerProps, SignUpContainerState> {
 
-    constructor(data: SignInContainerProps) {
+    constructor(data: SignUpContainerProps) {
         super(data)
 
         this.state = {
@@ -48,7 +48,7 @@ class signInContainer extends React.Component<SignInContainerProps, SignInContai
 
     submit() {
         const { email, password } = this.state;
-        Auth.getInstance().login(strategies.USERNAMEPASSWORD, email, password);
+        Auth.getInstance().register(strategies.USERNAMEPASSWORD, email, password);
     }
 
     openDialog() {
@@ -60,12 +60,12 @@ class signInContainer extends React.Component<SignInContainerProps, SignInContai
         const { open } = this.state;
 
         return <>
-            <Button variant='contained' onClick={() => this.openDialog()}>Sign in</Button>
+            <Button variant='contained' onClick={() => this.openDialog()}>Sign Up</Button>
             <Dialog
                 onClose={() => this.setState({ open: false })}
                 open={open}
             >
-                <DialogTitle>Sign in</DialogTitle>
+                <DialogTitle>Sign Up</DialogTitle>
                 <DialogContent>
                     <form className={classes.container}>
                         <TextField
@@ -87,7 +87,7 @@ class signInContainer extends React.Component<SignInContainerProps, SignInContai
                             variant='contained'
                             className={classes.button}
                         >
-                            Login
+                            Register
                     </Button>
                     </form>
                 </DialogContent>
@@ -96,4 +96,4 @@ class signInContainer extends React.Component<SignInContainerProps, SignInContai
     }
 }
 
-export default withStyles(styles)(signInContainer)
+export default withStyles(styles)(SignUpContainer)

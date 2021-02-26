@@ -65,6 +65,9 @@ export default class Auth {
 
     relay(request: SuperAgentRequest, cb: (res: request.Response) => void) {
         console.log('Going to relay!');
+        if (!this.strategy) {
+            console.log('No strategy found!');
+        }
         this.strategy?.dress(request, (dressedRequest) => {
             console.log('Got a dressed request!');
             dressedRequest.then(res => {
