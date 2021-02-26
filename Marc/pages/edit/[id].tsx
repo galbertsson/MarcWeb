@@ -26,7 +26,7 @@ class Edit extends React.Component<EditProps, EditState> {
     render() {
         return <>
             <div>
-                <DeckCreationContainer title={this.state.data.title} notes={this.state.data.notes} callback={(title, notes) => editDeck({_id: this.state.data._id, title, notes})} />
+                <DeckCreationContainer context='edit' title={this.state.data.title} notes={this.state.data.notes} callback={(title, notes) => editDeck({_id: this.state.data._id, title, notes})} />
             </div>
         </>
     }
