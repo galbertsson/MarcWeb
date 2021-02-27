@@ -55,6 +55,7 @@ export default class Auth {
     }
 
     logout() {
+        this.setUser();
         this.strategy?.logout();
     }
 
