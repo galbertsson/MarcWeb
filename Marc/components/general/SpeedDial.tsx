@@ -1,4 +1,5 @@
 import { createStyles, Fab, Paper, WithStyles, withStyles } from '@material-ui/core';
+import { Add } from '@material-ui/icons';
 import React, { useState } from 'react';
 
 const styles = createStyles({
@@ -36,7 +37,7 @@ const SpeedDial = (props: SpeedDialProps & WithStyles<typeof styles>) => {
 
     return (
         <div className={classes.container}>
-            <Fab onClick={() => setDialOpen(!dialOpen)} color='primary'>+</Fab>
+            <Fab onClick={() => setDialOpen(!dialOpen)} color='primary'><Add /></Fab>
             {
                 dialOpen && <div className={classes.optionsContainer}>
                     {options.map(option => <Paper key={option.text} className={classes.option} onClick={option.onClick}>{option.text}</Paper>)}
