@@ -94,7 +94,14 @@ class DeckCreationContainer extends React.Component<DeckCreationContainerProps, 
     const { context } = this.props;
     const { title, importerOpen } = this.state;
 
-    const leftHeaderActions = [<TextField value={title} onChange={(e) => this.setState({ title: e.target.value })} />];
+    const leftHeaderActions = [
+      <TextField
+        key="title"
+        placeholder="Title"
+        value={title}
+        onChange={(e) => this.setState({ title: e.target.value })}
+      />,
+    ];
 
     const rightHeaderActions = [
       <Button

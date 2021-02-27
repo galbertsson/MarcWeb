@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@material-ui/core": "^4.11.1",
+    "@material-ui/icons": "^4.11.2",
     "ky-universal": "^0.6.0",
     "next": "9.3.6",
     "react": "16.13.1",
