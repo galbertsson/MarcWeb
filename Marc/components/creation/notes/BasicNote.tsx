@@ -22,9 +22,9 @@ const BasicNote: FC<BasicNoteProps> = (props) => {
 
     return (
         <div className={classes.fieldWrapper}>
-            <TextField value={note.front} onChange={(e) => onChange({ ...note, front: e.target.value })} label='Front' />
+            <TextField value={note.front} onChange={(e) => onChange({ ...note, front: e.target.value })} placeholder='Front' />
             <Divider />
-            <TextField value={note.back} onChange={(e) => onChange({ ...note, back: e.target.value })} label='Back' />
+            <TextField value={note.back} onChange={(e) => onChange({ ...note, back: e.target.value })} placeholder='Back' />
         </div>
     )
 }

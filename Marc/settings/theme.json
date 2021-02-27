@@ -17,7 +17,7 @@
     "error": { "light": "#e57373", "main": "#f44336", "dark": "#d32f2f", "contrastText": "#fff" },
     "text": {
       "primary": "rgba(0, 0, 0, 1)",
-      "secondary": "rgba(255, 255, 255, 1)",
+      "secondary": "rgba(0, 0, 0, 1)",
       "disabled": "rgba(0, 0, 0, 0.38)",
       "hint": "rgba(0, 0, 0, 0.38)"
     }

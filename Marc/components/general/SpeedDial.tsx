@@ -15,7 +15,8 @@ const styles = createStyles({
     },
     option: {
         padding: 10,
-        margin: 5
+        margin: 5,
+        cursor: 'pointer'
     }
 });
 
@@ -35,7 +36,7 @@ const SpeedDial = (props: SpeedDialProps & WithStyles<typeof styles>) => {
 
     return (
         <div className={classes.container}>
-            <Fab onClick={() => setDialOpen(!dialOpen)}>+</Fab>
+            <Fab onClick={() => setDialOpen(!dialOpen)} color='primary'>+</Fab>
             {
                 dialOpen && <div className={classes.optionsContainer}>
                     {options.map(option => <Paper key={option.text} className={classes.option} onClick={option.onClick}>{option.text}</Paper>)}
