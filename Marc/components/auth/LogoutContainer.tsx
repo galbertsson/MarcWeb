@@ -9,7 +9,7 @@ export default class LogoutContainer extends Component {
     }
 
     render() {
-        return <Button onClick={() => this.logout()}>
+        return <Button variant='contained' onClick={() => this.logout()}>
             Logout
         </Button>
     }
