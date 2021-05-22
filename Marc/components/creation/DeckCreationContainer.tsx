@@ -1,6 +1,5 @@
 import React from 'react';
 import { textParser } from '../../util/textParser';
-import TextInput from './TextInput';
 import ClozeNote from '../../util/ClozeNote';
 import BasicNote from '../../util/BasicNote';
 import EditableNotes from './EditableNotes';
@@ -9,8 +8,10 @@ import { Button, TextField } from '@material-ui/core';
 import SpeedDial from '../general/SpeedDial';
 import SubHeader from '../shared/SubHeader';
 import DeckImporter from './DeckImporter';
+import Link from 'next/link';
 
 interface DeckCreationContainerProps {
+  id?: string;
   title?: string;
   notes?: Deck['notes'];
   callback: (title: string, notes: Deck['notes']) => void;
@@ -91,7 +92,7 @@ class DeckCreationContainer extends React.Component<DeckCreationContainerProps, 
   }
 
   render() {
-    const { context } = this.props;
+    const { context, id } = this.props;
     const { title, importerOpen } = this.state;
 
     const leftHeaderActions = [
@@ -117,6 +118,14 @@ class DeckCreationContainer extends React.Component<DeckCreationContainerProps, 
         {context}
       </Button>,
     ];
+
+    if (id) {
+      rightHeaderActions.push(
+        <Link href={`/play/[id]`} as={`/play/${id}`}>
+          <Button>Play</Button>
+        </Link>
+      );
+    }
 
     return (
       <>

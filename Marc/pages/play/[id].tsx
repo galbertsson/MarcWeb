@@ -1,18 +1,19 @@
 import React from 'react';
 import DeckCreationContainer from '../../components/creation/DeckCreationContainer';
+import Games from '../../components/games/Games';
 import { editDeck, getDeck } from '../../services/deck/Deck';
 import Deck from '../../util/Deck';
 
-interface EditState {
+interface TrainingCenterState {
   data: Deck;
 }
 
-interface EditProps {
+interface TrainingCenterProps {
   id: string;
 }
 
-class Edit extends React.Component<EditProps, EditState> {
-  constructor(props: EditProps) {
+class TrainingCenter extends React.Component<TrainingCenterProps, TrainingCenterState> {
+  constructor(props: TrainingCenterProps) {
     super(props);
 
     this.state = {
@@ -23,19 +24,7 @@ class Edit extends React.Component<EditProps, EditState> {
   render() {
     const { data } = this.state;
 
-    return (
-      <>
-        <div>
-          <DeckCreationContainer
-            context="edit"
-            id={data._id}
-            title={data.title}
-            notes={data.notes}
-            callback={(title, notes) => editDeck({ _id: this.state.data._id, title, notes })}
-          />
-        </div>
-      </>
-    );
+    return <Games deck={data} />;
   }
 
   componentDidMount() {
@@ -47,12 +36,10 @@ class Edit extends React.Component<EditProps, EditState> {
   }
 
   static async getInitialProps(data: { query: { id: string } }) {
-    console.log(data.query.id);
-
     return {
       id: data.query.id,
     };
   }
 }
 
-export default Edit;
+export default TrainingCenter;
