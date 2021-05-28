@@ -16,7 +16,6 @@ class ClozeNote {
     return wordsCopy.join(' ');
   }
 
-  // Ported code from old project
   generateCards() {
     const words: string[] = this.text.split(' ');
     const cardMap: Record<string, number[]> = {};
@@ -24,7 +23,8 @@ class ClozeNote {
     //Find deletions
     for (let i = 0; i < words.length; i++) {
       //Regex to look for the special cloze syntax
-      if (new RegExp('\\Q[[\\E(.*)\\Q::\\E(.*)\\Q]]\\E').test(words[i])) {
+      if (/\[\[.*::.*\]\]/g.test(words[i])) {
+        console.log('Matched');
         const removalKey = words[i].substring(2, words[i].indexOf('::'));
         const textToShow = words[i].substring(words[i].indexOf('::') + 2, words[i].indexOf(']]'));
 

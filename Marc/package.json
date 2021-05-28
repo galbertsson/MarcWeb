@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test": "mocha -r ts-node/register test/**/*.ts",
+    "test-watch": "mocha -r ts-node/register test/**/*.ts --watch-extensions ts --watch"
   },
   "prettier": {
     "arrowParens": "always",
@@ -36,10 +38,16 @@
     "superagent": "^5.3.1"
   },
   "devDependencies": {
+    "@types/chai": "^4.2.18",
+    "@types/mocha": "^8.2.2",
     "@types/node": "^13.13.33",
     "@types/react": "^16.14.2",
     "@types/superagent": "^4.1.10",
+    "babel-jest": "^26.6.3",
+    "chai": "^4.3.4",
+    "mocha": "^8.4.0",
     "prettier": "^2.2.1",
+    "ts-node": "^10.0.0",
     "typescript": "^3.9.7"
   }
 }
