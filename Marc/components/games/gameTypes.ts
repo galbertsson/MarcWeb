@@ -1,5 +1,5 @@
-import { Note } from '../../util/Deck';
-import { FlashCardGame } from './flashCard/FlashCardGame';
+import Deck, { Card } from '../../util/Deck';
+import FlashCardGame from './flashCard/FlashCardGame';
 import { QuizGame } from './quiz/QuizGame';
 
 export enum GameType {
@@ -7,11 +7,12 @@ export enum GameType {
   Quiz = 'quiz',
 }
 
-interface GameResult {
-  cards: Note & { correctlyAnswered: boolean };
+export interface GameResult {
+  cards: (Card & { correctlyAnswered?: boolean })[];
 }
 
 export interface GameComponentProps {
+  deck: Deck;
   onDone: (result: GameResult) => void;
   onAbort: () => void;
 }

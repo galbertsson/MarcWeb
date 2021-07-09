@@ -1,8 +1,8 @@
 import { describe } from 'mocha';
 import { expect } from 'chai';
 import { textParser } from '../../util/textParser';
-import BasicNote from '../../util/BasicNote';
-import ClozeNote from '../../util/ClozeNote';
+import BasicNote from '../../util/Notes/BasicNote';
+import ClozeNote from '../../util/Notes/ClozeNote';
 
 describe('Text parser', () => {
   it('Basic Note', () => {

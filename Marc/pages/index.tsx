@@ -1,5 +1,5 @@
-import Head from 'next/head'
-import { API_URL } from '../settings/setting'
+import Head from 'next/head';
+import { API_URL } from '../settings/setting';
 
 export default function Home() {
   console.log(API_URL);
@@ -10,7 +10,6 @@ export default function Home() {
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
     </div>
-  )
+  );
 }

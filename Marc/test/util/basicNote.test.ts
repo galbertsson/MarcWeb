@@ -1,4 +1,4 @@
-import BasicNote from '../../util/BasicNote';
+import BasicNote from '../../util/Notes/BasicNote';
 import { describe } from 'mocha';
 import { expect } from 'chai';
 

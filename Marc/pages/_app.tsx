@@ -11,6 +11,8 @@ const styles = createStyles({
   mainArea: {
     backgroundColor: colors.backgroundColor,
     minHeight: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
   },
 });
 
@@ -26,8 +28,7 @@ function MyApp({ Component, pageProps, classes }: AppProps & WithStyles<typeof s
   return (
     <AuthProvider>
       <ThemeProvider theme={theme}>
-        <Head>
-        </Head>
+        <Head></Head>
         <div className={classes.mainArea}>
           <Header />
           <Component {...pageProps} />

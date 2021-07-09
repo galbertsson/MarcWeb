@@ -1,6 +1,6 @@
 import Note from './Note';
-import ClozeNote from '../../util/ClozeNote';
-import BasicNote from '../../util/BasicNote';
+import ClozeNote from '../../util/Notes/ClozeNote';
+import BasicNote from '../../util/Notes/BasicNote';
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles({

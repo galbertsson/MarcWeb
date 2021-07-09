@@ -28,9 +28,13 @@ class TrainingCenter extends React.Component<TrainingCenterProps, TrainingCenter
   }
 
   componentDidMount() {
+    console.log('deckid', this.props.id);
     getDeck(this.props.id, (deck) => {
       if (deck) {
+        console.log('Found deck', deck);
         this.setState({ data: deck });
+      } else {
+        console.log('Failed to find deck :(');
       }
     });
   }

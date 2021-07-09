@@ -1,6 +1,6 @@
 import { describe } from 'mocha';
 import { expect } from 'chai';
-import ClozeNote from '../../util/ClozeNote';
+import ClozeNote from '../../util/Notes/ClozeNote';
 
 describe('Cloze note tests', () => {
   it('Cloze Note', (done) => {

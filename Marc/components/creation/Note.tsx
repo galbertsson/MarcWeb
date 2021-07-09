@@ -1,5 +1,5 @@
-import ClozeNoteType from '../../util/ClozeNote';
-import BasicNoteType from '../../util/BasicNote';
+import ClozeNoteType from '../../util/Notes/ClozeNote';
+import BasicNoteType from '../../util/Notes/BasicNote';
 import { makeStyles, Paper, IconButton } from '@material-ui/core';
 import React, { FC } from 'react';
 import BasicNote from './notes/BasicNote';

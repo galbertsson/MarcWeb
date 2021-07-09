@@ -1,7 +1,7 @@
 import React from 'react';
 import { textParser } from '../../util/textParser';
-import ClozeNote from '../../util/ClozeNote';
-import BasicNote from '../../util/BasicNote';
+import { ClozeNote } from '../../util/Notes/ClozeNote';
+import { BasicNote } from '../../util/Notes/BasicNote';
 import EditableNotes from './EditableNotes';
 import Deck from '../../util/Deck';
 import { Button, TextField } from '@material-ui/core';
@@ -9,6 +9,7 @@ import SpeedDial from '../general/SpeedDial';
 import SubHeader from '../shared/SubHeader';
 import DeckImporter from './DeckImporter';
 import Link from 'next/link';
+import { NoteType } from '../../util/Notes/NoteTypes';
 
 interface DeckCreationContainerProps {
   id?: string;
@@ -71,9 +72,9 @@ class DeckCreationContainer extends React.Component<DeckCreationContainerProps, 
     let notes = this.state.notes.slice();
 
     if (type === 'cloze') {
-      notes.push(new ClozeNote(''));
+      notes.push({ type: NoteType.ClozeNote, text: '' });
     } else if (type === 'basic') {
-      notes.push(new BasicNote('', ''));
+      notes.push({ type: NoteType.BasicNote, front: '', back: '' });
     }
 
     this.setState({ notes: notes });
