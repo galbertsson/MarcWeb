@@ -10,6 +10,10 @@ const styles = createStyles({
     flex: 1,
     transition: `${TRANSITION_TIME}s ease-in-out`,
     justifySelf: 'center',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: '2em'
   },
   rotated: {
     transform: 'rotateX(180deg)',
