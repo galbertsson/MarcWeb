@@ -13,6 +13,7 @@ export interface GameResult {
 
 export interface GameComponentProps {
   deck: Deck;
+  startData?: GameResult;
   onDone: (result: GameResult) => void;
   onAbort: () => void;
 }

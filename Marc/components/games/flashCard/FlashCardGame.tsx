@@ -23,13 +23,37 @@ const styles = createStyles({
     flex: 1,
     display: 'flex',
     justifyContent: 'center',
-    margin: 20
-  }
+    margin: 20,
+  },
 });
 
-const FlashCardGame: FC<GameComponentProps & WithStyles<typeof styles>> = ({ deck, onAbort, onDone, classes }) => {
-  const [cards, setCards] = useState<GameResult['cards']>(deck.notes.flatMap((note) => generateCards(note)));
-  const [currentCardIndex, setCurrentCardIndex] = useState(0);
+const FlashCardGame: FC<GameComponentProps & WithStyles<typeof styles>> = ({
+  deck,
+  onAbort,
+  onDone,
+  startData,
+  classes,
+}) => {
+  const getStartCards = () => {
+    if (startData) {
+      return startData.cards;
+    }
+
+    return deck.notes.flatMap((note) => generateCards(note));
+  };
+
+  const [cards, setCards] = useState<GameResult['cards']>(getStartCards());
+
+  const getStartIndex = () => {
+    let index = 0;
+    if (startData) {
+      index = startData.cards.findIndex((card) => card.correctlyAnswered === undefined); // Find first un-answered card
+    }
+
+    return index < 0 ? 0 : index;
+  };
+
+  const [currentCardIndex, setCurrentCardIndex] = useState(getStartIndex());
 
   const steps = useMemo(() => {
     return cards.map((card) => {
@@ -69,6 +93,10 @@ const FlashCardGame: FC<GameComponentProps & WithStyles<typeof styles>> = ({ dec
     updateCards(false);
   }, [updateCards]);
 
+  const onCardSelected = useCallback((index: number) => {
+    setCurrentCardIndex(index);
+  }, []);
+
   return (
     <div className={classes.container}>
       <div className={classes.cardContainer}>
@@ -83,7 +111,7 @@ const FlashCardGame: FC<GameComponentProps & WithStyles<typeof styles>> = ({ dec
             Incorrect
           </Button>
         </div>
-        <GameProgress steps={steps} />
+        <GameProgress currentStepIndex={currentCardIndex} steps={steps} onCardSelected={onCardSelected} />
       </div>
     </div>
   );

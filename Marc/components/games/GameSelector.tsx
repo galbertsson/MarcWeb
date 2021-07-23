@@ -11,7 +11,7 @@ export const GameSelector = ({ onGameSelected }: GameSelectorProps) => {
   return (
     <div>
       {Object.values(GameType).map((gameType) => (
-        <Paper onClick={() => onGameSelected(gameType)}>{letterCase(gameType)}</Paper>
+        <Paper key={gameType} onClick={() => onGameSelected(gameType)}>{letterCase(gameType)}</Paper>
       ))}
     </div>
   );
