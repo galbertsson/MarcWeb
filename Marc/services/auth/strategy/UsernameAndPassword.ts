@@ -63,8 +63,14 @@ class UsernameAndPassword implements Strategy {
           this.setItem(localStorageItem.USERNAME, res.body.username);
           this.setItem(localStorageItem.USER_ID, res.body.id);
           done();
-        })
-        .catch((err) => console.log(err));
+        },)
+        .catch((err) => {
+          // 403 probably means that CSRF token is no longer valid, remove old one
+          if (err.status === 403) {
+            this.deleteItem(localStorageItem.CSRF_TOKEN);
+          }
+          console.log(err);
+        });
     });
   }
 
