@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions } from '@material-ui/core';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
 import React from 'react';
 import { GameResult } from './gameTypes';
 
@@ -16,13 +16,19 @@ const GameResultModal = (props: GameResultModalProps) => {
 
   return (
     <Dialog open={true}>
-      <div>
-        Result
-        {correctlyAnswered} / {gameResult.cards.length}
-      </div>
+      <DialogTitle>Game done!</DialogTitle>
+      <DialogContent>
+        <div>
+          {correctlyAnswered} / {gameResult.cards.length} card correct!
+        </div>
+      </DialogContent>
       <DialogActions>
-        <Button onClick={onRestart}>Play Again</Button>
-        <Button onClick={onReplay}>Replay incorrect cards</Button>
+        <Button color="primary" variant="contained" onClick={onRestart}>
+          Play Again
+        </Button>
+        <Button color="primary" variant="contained" onClick={onReplay}>
+          Replay incorrect cards
+        </Button>
       </DialogActions>
     </Dialog>
   );
