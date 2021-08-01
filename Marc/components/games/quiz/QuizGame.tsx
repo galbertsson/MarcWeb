@@ -1,8 +1,9 @@
 import React, { useState, useMemo, useCallback, FC } from 'react';
-import { Button, Card, createStyles, withStyles, WithStyles } from '@material-ui/core';
+import { Card, createStyles, withStyles, WithStyles } from '@material-ui/core';
 import { generateCards } from '../../../util/Notes/CardGenerator';
 import GameProgress, { StepStatus } from '../GameProgress';
 import { GameComponentProps, GameResult } from '../gameTypes';
+import shuffle from '../../../util/shuffle';
 
 const styles = createStyles({
   container: {
@@ -21,8 +22,22 @@ const styles = createStyles({
   cardContainer: {
     flex: 1,
     display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'center',
     margin: 20,
+  },
+  answerAlternatives: {
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr',
+    cursor: 'pointer'
+  },
+  answerAlternative: {
+    margin: 5,
+    padding: 10,
+  },
+  questionCard: {
+    flex: 1,
+    margin: 5,
   },
 });
 
@@ -38,7 +53,35 @@ const QuizGame: FC<GameComponentProps & WithStyles<typeof styles>> = ({
       return startData.cards;
     }
 
-    return deck.notes.flatMap((note) => generateCards(note)); // TODO: Remove the cloze notes?
+    const cards = deck.notes.flatMap((note) => generateCards(note));
+
+    const cardsWithAnswers = cards.map((card, cardIndex) => {
+      const alternatives: string[] = [];
+      if (cards.length < 4) {
+        alternatives.push(...cards.map((card) => card.back));
+      } else {
+        const indexes = Array.from(Array(cards.length).keys());
+        indexes.splice(cardIndex, 1); // Remove the current card so it cannot be randomly picked twice
+        alternatives.push(card.back);
+
+        // Pick 3 unique random cards
+        for (let i = 0; i < 3; i++) {
+          const randomIndex = indexes[Math.floor(Math.random() * indexes.length)];
+          alternatives.push(cards[randomIndex].back);
+          indexes.splice(randomIndex, 1);
+        }
+      }
+
+      // Shuffel answer alternatives
+      const answerAlternatives = shuffle(alternatives);
+
+      return {
+        ...card,
+        answerAlternatives,
+      };
+    });
+
+    return cardsWithAnswers;
   };
 
   const [cards, setCards] = useState<GameResult['cards']>(getStartCards());
@@ -84,37 +127,35 @@ const QuizGame: FC<GameComponentProps & WithStyles<typeof styles>> = ({
     [cards, currentCardIndex, onDone]
   );
 
-  const onCardCorrect = useCallback(() => {
-    updateCards(true);
-  }, [updateCards]);
-
-  const onCardIncorrect = useCallback(() => {
-    updateCards(false);
-  }, [updateCards]);
-
   const onCardSelected = useCallback((index: number) => {
     setCurrentCardIndex(index);
   }, []);
 
-  const onAnswerSelected = useCallback((answer: string) => {
-    if (answer === cards[currentCardIndex].back) {
-      // TODO: Correct
-    } else {
-      // Incorrect
-    }
-  }, []);
+  const onAnswerSelected = useCallback(
+    (answer: string) => {
+      if (answer === cards[currentCardIndex].back) {
+        updateCards(true);
+      } else {
+        updateCards(false);
+      }
+    },
+    [cards, currentCardIndex, updateCards]
+  );
 
   return (
     <div className={classes.container}>
       <div className={classes.cardContainer}>
-        <Card>
-          Card front
-        </Card>
+        <Card className={classes.questionCard}>{cards[currentCardIndex].front}</Card>
+        <div className={classes.answerAlternatives}>
+          {cards[currentCardIndex].answerAlternatives?.map((alternative, index) => (
+            <Card className={classes.answerAlternative} onClick={() => onAnswerSelected(alternative)} key={index}>
+              {alternative}
+            </Card>
+          ))}
+        </div>
       </div>
       <div className={classes.bottom}>
-        <div className={classes.buttons}>
-          
-        </div>
+        <div className={classes.buttons}></div>
         <GameProgress currentStepIndex={currentCardIndex} steps={steps} onCardSelected={onCardSelected} />
       </div>
     </div>
