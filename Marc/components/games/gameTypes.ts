@@ -1,6 +1,6 @@
 import Deck, { Card } from '../../util/Deck';
 import FlashCardGame from './flashCard/FlashCardGame';
-import { QuizGame } from './quiz/QuizGame';
+import QuizGame from './quiz/QuizGame';
 
 export enum GameType {
   FlashCard = 'flash_card',
@@ -8,7 +8,7 @@ export enum GameType {
 }
 
 export interface GameResult {
-  cards: (Card & { correctlyAnswered?: boolean })[];
+  cards: (Card & { correctlyAnswered?: boolean, answerAlternatives?: string[] })[];
 }
 
 export interface GameComponentProps {
