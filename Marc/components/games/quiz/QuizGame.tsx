@@ -66,8 +66,9 @@ const QuizGame: FC<GameComponentProps & WithStyles<typeof styles>> = ({
 
         // Pick 3 unique random cards
         for (let i = 0; i < 3; i++) {
-          const randomIndex = indexes[Math.floor(Math.random() * indexes.length)];
-          alternatives.push(cards[randomIndex].back);
+          const randomIndex = Math.floor(Math.random() * indexes.length);
+          const randomCardIndex = indexes[randomIndex];
+          alternatives.push(cards[randomCardIndex].back);
           indexes.splice(randomIndex, 1);
         }
       }
