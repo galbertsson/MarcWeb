@@ -1,16 +1,18 @@
 import React from 'react';
 import { textParser } from '../../util/textParser';
-import TextInput from './TextInput';
-import ClozeNote from '../../util/ClozeNote';
-import BasicNote from '../../util/BasicNote';
+import { ClozeNote } from '../../util/Notes/ClozeNote';
+import { BasicNote } from '../../util/Notes/BasicNote';
 import EditableNotes from './EditableNotes';
 import Deck from '../../util/Deck';
 import { Button, TextField } from '@material-ui/core';
 import SpeedDial from '../general/SpeedDial';
 import SubHeader from '../shared/SubHeader';
 import DeckImporter from './DeckImporter';
+import Link from 'next/link';
+import { NoteType } from '../../util/Notes/NoteTypes';
 
 interface DeckCreationContainerProps {
+  id?: string;
   title?: string;
   notes?: Deck['notes'];
   callback: (title: string, notes: Deck['notes']) => void;
@@ -70,9 +72,9 @@ class DeckCreationContainer extends React.Component<DeckCreationContainerProps, 
     let notes = this.state.notes.slice();
 
     if (type === 'cloze') {
-      notes.push(new ClozeNote(''));
+      notes.push({ type: NoteType.ClozeNote, text: '' });
     } else if (type === 'basic') {
-      notes.push(new BasicNote('', ''));
+      notes.push({ type: NoteType.BasicNote, front: '', back: '' });
     }
 
     this.setState({ notes: notes });
@@ -91,7 +93,7 @@ class DeckCreationContainer extends React.Component<DeckCreationContainerProps, 
   }
 
   render() {
-    const { context } = this.props;
+    const { context, id } = this.props;
     const { title, importerOpen } = this.state;
 
     const leftHeaderActions = [
@@ -117,6 +119,14 @@ class DeckCreationContainer extends React.Component<DeckCreationContainerProps, 
         {context}
       </Button>,
     ];
+
+    if (id) {
+      rightHeaderActions.push(
+        <Link href={`/play/[id]`} as={`/play/${id}`}>
+          <Button>Play</Button>
+        </Link>
+      );
+    }
 
     return (
       <>

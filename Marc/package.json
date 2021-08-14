@@ -5,7 +5,11 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test": "mocha -r ts-node/register test/**/*.ts",
+    "test-watch": "mocha -r ts-node/register test/**/*.ts --watch-extensions ts --watch",
+    "lint": "next lint",
+    "prettier-fix": "prettier --write 'util/**/*.{ts,js,tsx}'"
   },
   "prettier": {
     "arrowParens": "always",
@@ -24,22 +28,31 @@
     "tabWidth": 2,
     "trailingComma": "es5",
     "useTabs": false,
-    "vueIndentScriptAndStyle": false
+    "vueIndentScriptAndStyle": false,
+    "endOfLine": "lf"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.1",
     "@material-ui/icons": "^4.11.2",
     "ky-universal": "^0.6.0",
-    "next": "9.3.6",
-    "react": "16.13.1",
-    "react-dom": "16.13.1",
+    "next": "^11.0.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "superagent": "^5.3.1"
   },
   "devDependencies": {
+    "@types/chai": "^4.2.18",
+    "@types/mocha": "^8.2.2",
     "@types/node": "^13.13.33",
     "@types/react": "^16.14.2",
     "@types/superagent": "^4.1.10",
+    "babel-jest": "^26.6.3",
+    "chai": "^4.3.4",
+    "eslint": "^7.29.0",
+    "eslint-config-next": "^11.0.0",
+    "mocha": "^8.4.0",
     "prettier": "^2.2.1",
-    "typescript": "^3.9.7"
+    "ts-node": "^10.0.0",
+    "typescript": "^4.3.4"
   }
 }

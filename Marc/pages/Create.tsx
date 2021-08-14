@@ -1,7 +1,7 @@
 import React from 'react';
 import DeckCreationContainer from '../components/creation/DeckCreationContainer';
-import ClozeNote from '../util/ClozeNote';
-import BasicNote from '../util/BasicNote';
+import { ClozeNote } from '../util/Notes/ClozeNote';
+import { BasicNote } from '../util/Notes/BasicNote';
 import { createDeck } from '../services/deck/Deck';
 
 interface CreateProps {}

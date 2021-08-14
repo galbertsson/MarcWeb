@@ -1,81 +1,62 @@
-import { getRequestData, PATHS } from '../routes'
+import { getRequestData, PATHS } from '../routes';
 import superAgent, { SuperAgentRequest } from 'superagent';
 import Auth from '../auth/Auth';
 import Deck from '../../util/Deck';
 
 const getDecks = (cb: (decks?: Deck[]) => void) => {
-    const { url } = getRequestData(PATHS.GET_DECKS, []);
-    console.log('Gettings decks from', url);
+  const { url } = getRequestData(PATHS.GET_DECKS, []);
+  console.log('Gettings decks from', url);
 
-    let request = superAgent
-        .get(url)
-        .send();
+  let request = superAgent.get(url).send();
 
-    console.log('will relay')
+  console.log('will relay');
 
-    Auth.getInstance().relay(request, (res) => {
-        console.log('We got the relay!');
-        cb(res.body);
-    });
-}
+  Auth.getInstance().relay(request, (res) => {
+    console.log('We got the relay!');
+    cb(res.body);
+  });
+};
 
 const createDeck = (title: string, notes: Deck['notes']) => {
-    const { url } = getRequestData(PATHS.CREATE_DECK, []);
+  const { url } = getRequestData(PATHS.CREATE_DECK, []);
 
-    console.log('sending', {title, notes})
+  console.log('sending', { title, notes });
 
-    let request = superAgent
-        .post(url)
-        .send({title, notes});
+  let request = superAgent.post(url).send({ title, notes });
 
-    Auth.getInstance().relay(request, (res) => {
-        console.log(res);
-    });
-}
-
+  Auth.getInstance().relay(request, (res) => {
+    console.log(res);
+  });
+};
 
 const getDeck = (id: string, cb: (deck?: Deck) => void) => {
-    const { url } = getRequestData(PATHS.GET_DECK, [id]);
+  const { url } = getRequestData(PATHS.GET_DECK, [id]);
 
-    const request = superAgent
-        .get(url)
-        .send();
+  const request = superAgent.get(url).send();
 
-    Auth.getInstance().relay(request, (res) => {
-        cb(res.body);
-    });
-}
-
+  Auth.getInstance().relay(request, (res) => {
+    cb(res.body);
+  });
+};
 
 const editDeck = (deck: Deck) => {
-    const { url } = getRequestData(PATHS.EDIT_DECK, []);
+  const { url } = getRequestData(PATHS.EDIT_DECK, []);
 
-    const request = superAgent
-        .post(url)
-        .send(deck);
+  const request = superAgent.post(url).send(deck);
 
-    Auth.getInstance().relay(request, (res) => {
-        console.log(res);
-    });
-}
-
+  Auth.getInstance().relay(request, (res) => {
+    console.log(res);
+  });
+};
 
 const deleteDeck = (id: string) => {
-    const { url } = getRequestData(PATHS.DELETE_DECK, [id]);
+  const { url } = getRequestData(PATHS.DELETE_DECK, [id]);
 
-    const request = superAgent
-        .delete(url)
-        .send();
+  const request = superAgent.delete(url).send();
 
-    Auth.getInstance().relay(request, (res) => {
-        console.log(res);
-    })
-}
+  Auth.getInstance().relay(request, (res) => {
+    console.log(res);
+  });
+};
 
-export {
-    getDeck,
-    createDeck,
-    getDecks,
-    editDeck,
-    deleteDeck
-}
+export { getDeck, createDeck, getDecks, editDeck, deleteDeck };

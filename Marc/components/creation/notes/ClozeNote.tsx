@@ -1,6 +1,6 @@
 import { TextField } from '@material-ui/core';
 import React, { FC } from 'react';
-import ClozeNoteType from '../../../util/ClozeNote';
+import { ClozeNote as ClozeNoteType } from '../../../util/Notes/ClozeNote';
 
 interface ClozeNoteProps {
   note: ClozeNoteType;
