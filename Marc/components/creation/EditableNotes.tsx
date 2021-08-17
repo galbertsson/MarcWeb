@@ -1,6 +1,6 @@
 import Note from './Note';
-import ClozeNote from '../../util/Notes/ClozeNote';
-import BasicNote from '../../util/Notes/BasicNote';
+import { ClozeNote } from '../../util/Notes/ClozeNote';
+import { BasicNote } from '../../util/Notes/BasicNote';
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles({
@@ -27,7 +27,7 @@ const EditableNotes = (props: EditableNotesProps) => {
           note={note}
           index={index}
           deleteCallBack={props.deleteCallBack}
-          changeCallBack={(note) => props.changeCallBack(index, note)}
+          changeCallBack={props.changeCallBack}
         />
       ))}
     </div>
