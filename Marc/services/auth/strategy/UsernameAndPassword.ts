@@ -52,7 +52,7 @@ class UsernameAndPassword implements Strategy {
     return this.getUserId !== null;
   }
 
-  login(username: string, password: string, done: () => void) {
+  login(username: string, password: string, done: () => void, isRetry: boolean = false) {
     const { url } = getRequestData(PATHS.LOGIN, []);
 
     let request = superAgent.post(url).send({ username, password });
@@ -65,9 +65,10 @@ class UsernameAndPassword implements Strategy {
           done();
         },)
         .catch((err) => {
-          // 403 probably means that CSRF token is no longer valid, remove old one
-          if (err.status === 403) {
+          // 403 probably means that CSRF token is no longer valid, remove old one and try one more time
+          if (err.status === 403 && !isRetry) {
             this.deleteItem(localStorageItem.CSRF_TOKEN);
+            this.login(username, password, done, true);
           }
           console.log(err);
         });
