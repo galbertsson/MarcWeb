@@ -35,7 +35,7 @@
     "@material-ui/core": "^4.11.1",
     "@material-ui/icons": "^4.11.2",
     "ky-universal": "^0.6.0",
-    "next": "^11.0.0",
+    "next": "^11.1.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "superagent": "^5.3.1",
