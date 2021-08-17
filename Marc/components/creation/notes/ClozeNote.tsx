@@ -1,5 +1,6 @@
 import { TextField } from '@material-ui/core';
 import React, { FC } from 'react';
+import { useDebouncedCallback } from 'use-debounce';
 import { ClozeNote as ClozeNoteType } from '../../../util/Notes/ClozeNote';
 
 interface ClozeNoteProps {
@@ -10,16 +11,13 @@ interface ClozeNoteProps {
 const ClozeNote: FC<ClozeNoteProps> = (props) => {
   const { note, onChange } = props;
 
+  const localOnChange = useDebouncedCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    onChange({ ...note, text: event.target.value });
+  }, 150);
+
   return (
     <div>
-      <TextField
-        value={note.text}
-        onChange={(e) => onChange({ ...note, text: e.target.value })}
-        multiline
-        rows={3}
-        variant="outlined"
-        fullWidth
-      />
+      <TextField defaultValue={note.text} onChange={localOnChange} multiline rows={3} variant="outlined" fullWidth />
     </div>
   );
 };

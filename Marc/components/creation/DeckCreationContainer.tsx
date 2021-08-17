@@ -62,11 +62,11 @@ class DeckCreationContainer extends React.Component<DeckCreationContainerProps, 
     this.setState({ notes: tmp });
   }
 
-  noteChange(index: number, note: BasicNote | ClozeNote) {
+  noteChange = (index: number, note: BasicNote | ClozeNote) => {
     const newNotes = [...this.state.notes];
     newNotes[index] = note;
     this.setState({ notes: newNotes });
-  }
+  };
 
   newNote(type: 'cloze' | 'basic') {
     let notes = this.state.notes.slice();
@@ -80,12 +80,12 @@ class DeckCreationContainer extends React.Component<DeckCreationContainerProps, 
     this.setState({ notes: notes });
   }
 
-  removeNote(index: number) {
+  removeNote = (index: number) => {
     const notes = this.state.notes.slice();
     notes.splice(index, 1);
 
     this.setState({ notes: notes });
-  }
+  };
 
   createDeck() {
     // TODO: Just call decks.createDeck?
@@ -122,7 +122,7 @@ class DeckCreationContainer extends React.Component<DeckCreationContainerProps, 
 
     if (id) {
       rightHeaderActions.push(
-        <Link href={`/play/[id]`} as={`/play/${id}`}>
+        <Link href={`/play/[id]`} as={`/play/${id}`} key="play">
           <Button>Play</Button>
         </Link>
       );
@@ -136,11 +136,7 @@ class DeckCreationContainer extends React.Component<DeckCreationContainerProps, 
           onParse={(notes) => this.setState({ notes, importerOpen: false })}
           onClose={() => this.setState({ importerOpen: false })}
         />
-        <EditableNotes
-          notes={this.state.notes}
-          deleteCallBack={(index) => this.removeNote(index)}
-          changeCallBack={(index, note) => this.noteChange(index, note)}
-        />
+        <EditableNotes notes={this.state.notes} deleteCallBack={this.removeNote} changeCallBack={this.noteChange} />
 
         <SpeedDial
           options={[

@@ -23,7 +23,6 @@ export function generateCards(note: ClozeNote) {
   for (let i = 0; i < words.length; i++) {
     //Regex to look for the special cloze syntax
     if (/\[\[.*::.*\]\]/g.test(words[i])) {
-      console.log('Matched');
       const removalKey = words[i].substring(2, words[i].indexOf('::'));
       const textToShow = words[i].substring(words[i].indexOf('::') + 2, words[i].indexOf(']]'));
 
