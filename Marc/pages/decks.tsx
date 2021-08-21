@@ -32,7 +32,6 @@ class Decks extends React.Component<DeckProps, DeckState> {
   }
 
   componentDidMount() {
-    console.log('Going to get decks!');
     getDecks((decks) => this.setState({ decks: decks ?? [] }));
   }
 

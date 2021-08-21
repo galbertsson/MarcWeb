@@ -63,14 +63,14 @@ class UsernameAndPassword implements Strategy {
           this.setItem(localStorageItem.USERNAME, res.body.username);
           this.setItem(localStorageItem.USER_ID, res.body.id);
           done();
-        },)
+        })
         .catch((err) => {
           // 403 probably means that CSRF token is no longer valid, remove old one and try one more time
           if (err.status === 403 && !isRetry) {
             this.deleteItem(localStorageItem.CSRF_TOKEN);
             this.login(username, password, done, true);
           }
-          console.log(err);
+          console.warn(err);
         });
     });
   }
@@ -88,7 +88,7 @@ class UsernameAndPassword implements Strategy {
           // Assume dev server restarted
           this.deleteItem(localStorageItem.CSRF_TOKEN);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.warn(err));
     });
   }
 
@@ -98,7 +98,7 @@ class UsernameAndPassword implements Strategy {
     let request = superAgent.post(url).send({ username, password });
 
     this.dress(request, (dressedRequest) => {
-      dressedRequest.then((res) => console.log(res)).catch((err) => console.log(err));
+      dressedRequest.then((res) => console.log(res)).catch((err) => console.warn('Could not register', err));
     });
 
     return true;

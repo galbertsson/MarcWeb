@@ -1,6 +1,6 @@
 import request, { SuperAgentRequest } from 'superagent';
 import User from '../../util/User';
-import { Strategy } from './strategy/Strategy';
+import { Strategy, strategies } from './strategy/Strategy';
 
 type UserObserver = (user: User | undefined) => void;
 
@@ -10,7 +10,20 @@ export default class Auth {
   private userObservers: UserObserver[] = [];
   private static authInstance: Auth;
 
-  private constructor() {}
+  private constructor(buildFromStorage: boolean = true) {
+    if (buildFromStorage) {
+      for (const stratergy of Object.values(strategies)) {
+        const username = stratergy.getUsername();
+        const id = stratergy.getUserId()
+        // If the browser has all valiable data to be considered logged in, then update all data to match.  
+        if (stratergy.isLoggedIn() && username && id) {
+          this.strategy = stratergy;
+          this.user = { username, id };
+          break;
+        }
+      }
+    }
+  }
 
   static getInstance() {
     if (!Auth.authInstance) {
@@ -20,25 +33,25 @@ export default class Auth {
     return Auth.authInstance;
   }
 
-  addUserObserver(observer: UserObserver) {
-    console.log('new observer!');
+  addUserObserver(observer: UserObserver, callbackInitialValue?: boolean) {
     this.userObservers.push(observer);
+
+    if (callbackInitialValue) {
+      observer(this.user);
+    }
   }
 
   setStrategy(strategy?: Strategy) {
     this.strategy = strategy;
-    console.log('settings stragety', strategy);
   }
 
   setUser(user?: User) {
     this.user = user;
-    console.log('going to tell observers!');
     this.userObservers.forEach((observer) => observer(this.user));
   }
 
   login(strategy: Strategy, username: string, password: string) {
     strategy.login(username, password, () => {
-      console.log('did login');
       const username = strategy?.getUsername();
       const userId = strategy?.getUserId();
 
@@ -50,8 +63,6 @@ export default class Auth {
       this.setStrategy(strategy);
       this.setUser(new User(userId, username));
     });
-
-    console.log('Doing login!');
   }
 
   logout() {
@@ -65,19 +76,16 @@ export default class Auth {
   }
 
   relay(request: SuperAgentRequest, cb: (res: request.Response) => void) {
-    console.log('Going to relay!');
     if (!this.strategy) {
-      console.log('No strategy found!');
+      console.warn('No strategy found!');
     }
     this.strategy?.dress(request, (dressedRequest) => {
-      console.log('Got a dressed request!');
       dressedRequest
         .then((res) => {
-          console.log('Relay res to consumer?', res);
           cb(res);
         })
         .catch((err) => {
-          console.log('Relay err to consumer?', err);
+          console.error('Failed to relay request', err);
         });
     });
   }

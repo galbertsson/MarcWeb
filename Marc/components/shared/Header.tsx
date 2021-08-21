@@ -25,6 +25,12 @@ const styles = createStyles({
   },
   rightActions: {
     display: 'flex',
+    alignItems: 'center',
+  },
+  username: {
+    color: 'white',
+    fontSize: '1.3em',
+    margin: '0 10px'
   },
 });
 
@@ -57,7 +63,12 @@ const Header = ({ classes }: HeaderProps & WithStyles<typeof styles>) => {
             </div>
           </>
         )}
-        {user && <LogoutContainer />}
+        {user && (
+          <>
+            <p className={classes.username}>{user.username}</p>
+            <LogoutContainer />
+          </>
+        )}
       </div>
     </nav>
   );

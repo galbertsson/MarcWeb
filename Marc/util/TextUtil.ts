@@ -1,6 +1,4 @@
 export const letterCase = (text: string) => {
-  console.log(text);
-
   let isAfterSpace = true;
   let newString = '';
   for (let i = 0; i < text.length; i++) {
