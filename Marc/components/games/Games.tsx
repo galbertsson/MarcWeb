@@ -20,7 +20,6 @@ const Games = (props: GamesProps) => {
   const onGameDone = useCallback<GameComponentProps['onDone']>((result) => {
     setGameResult(result);
     setGameResultOpen(true);
-    console.log('Game done!');
   }, []);
 
   const onGameAborted = useCallback(() => {

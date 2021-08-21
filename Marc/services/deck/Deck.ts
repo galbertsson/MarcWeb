@@ -1,18 +1,14 @@
 import { getRequestData, PATHS } from '../routes';
-import superAgent, { SuperAgentRequest } from 'superagent';
+import superAgent from 'superagent';
 import Auth from '../auth/Auth';
 import Deck from '../../util/Deck';
 
 const getDecks = (cb: (decks?: Deck[]) => void) => {
   const { url } = getRequestData(PATHS.GET_DECKS, []);
-  console.log('Gettings decks from', url);
 
   let request = superAgent.get(url).send();
 
-  console.log('will relay');
-
   Auth.getInstance().relay(request, (res) => {
-    console.log('We got the relay!');
     cb(res.body);
   });
 };
@@ -20,12 +16,10 @@ const getDecks = (cb: (decks?: Deck[]) => void) => {
 const createDeck = (title: string, notes: Deck['notes']) => {
   const { url } = getRequestData(PATHS.CREATE_DECK, []);
 
-  console.log('sending', { title, notes });
-
   let request = superAgent.post(url).send({ title, notes });
 
   Auth.getInstance().relay(request, (res) => {
-    console.log(res);
+    console.log(res); // TODO: Show feedback to user
   });
 };
 
@@ -45,7 +39,7 @@ const editDeck = (deck: Deck) => {
   const request = superAgent.post(url).send(deck);
 
   Auth.getInstance().relay(request, (res) => {
-    console.log(res);
+    console.log(res); // TODO: Show feedback to user
   });
 };
 
@@ -55,7 +49,7 @@ const deleteDeck = (id: string) => {
   const request = superAgent.delete(url).send();
 
   Auth.getInstance().relay(request, (res) => {
-    console.log(res);
+    console.log(res); // TODO: Show feedback to user
   });
 };
 

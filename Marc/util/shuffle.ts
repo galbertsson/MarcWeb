@@ -10,6 +10,6 @@ function shuffle<T>(array: T[]) {
   }
 
   return array;
-};
+}
 
 export default shuffle;

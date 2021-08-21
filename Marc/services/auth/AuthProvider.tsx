@@ -11,9 +11,7 @@ export const AuthProvider: FC<AuthProviderProps> = (props) => {
 
   useEffect(() => {
     const auth = Auth.getInstance();
-    console.log('setting up observer!');
     auth.addUserObserver((user) => {
-      console.log('Detected user change, updating state');
       setUser(user);
     }, true);
 
