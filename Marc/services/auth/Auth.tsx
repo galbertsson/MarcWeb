@@ -1,6 +1,6 @@
 import request, { SuperAgentRequest } from 'superagent';
 import User from '../../util/User';
-import { Strategy } from './strategy/Strategy';
+import { Strategy, strategies } from './strategy/Strategy';
 
 type UserObserver = (user: User | undefined) => void;
 
@@ -10,7 +10,21 @@ export default class Auth {
   private userObservers: UserObserver[] = [];
   private static authInstance: Auth;
 
-  private constructor() {}
+  private constructor(buildFromStorage: boolean = true) {
+    if (buildFromStorage) {
+      for (const stratergy of Object.values(strategies)) {
+        const username = stratergy.getUsername();
+        const id = stratergy.getUserId()
+        // If the browser has all valiable data to be considered logged in, then update all data to match.  
+        if (stratergy.isLoggedIn() && username && id) {
+          console.log('ALready logged in, setting!')
+          this.strategy = stratergy;
+          this.user = { username, id };
+          break;
+        }
+      }
+    }
+  }
 
   static getInstance() {
     if (!Auth.authInstance) {
@@ -20,9 +34,13 @@ export default class Auth {
     return Auth.authInstance;
   }
 
-  addUserObserver(observer: UserObserver) {
+  addUserObserver(observer: UserObserver, callbackInitialValue?: boolean) {
     console.log('new observer!');
     this.userObservers.push(observer);
+
+    if (callbackInitialValue) {
+      observer(this.user);
+    }
   }
 
   setStrategy(strategy?: Strategy) {
